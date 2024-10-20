@@ -1,0 +1,86 @@
+{
+    "files.exclude": {
+        // Root directory
+        "[Bb]uild/": true,
+        "[Bb]uilds/": true,
+        "[L]ibrary/": true,
+        "[Ll]ogs/": true,
+        "[Oo]bj/": true,
+        "[Tt]emp/": true,
+        "[Pp]roject[Ss]ettings/": true,
+        "[Mm]emoryCaptures/": true,
+        "[Uu]ser[Ss]ettings/": true,
+        // Unity generated .csproj and .sln files in root directory
+        "*.csproj": true,
+        "*.sln": true,
+        "**/.DS_Store": true,
+        "**/.git": true,
+        "**/.gitignore": true,
+        "**/.gitmodules": true,
+        // File exensions
+        "**/*.booproj": true,
+        "**/*.pidb": true,
+        "**/*.suo": true,
+        "**/*.user": true,
+        "**/*.userprefs": true,
+        "**/*.unityproj": true,
+        // Unity formats
+        "**/*.mat": true,
+        "**/*.meta": true,
+        "**/*.prefab": true,
+        "**/*.unity": true,
+        "**/*.unityasset": true,
+        "**/*.asset": true,
+        "**/*.cubemap": true,
+        "**/*.flare": true,
+        "**/*.a": true,
+        "**/*.anim": true,
+        "**/*.controller": true,
+        "**/*.exr": true,
+        // Binaries
+        "**/*.dll": true,
+        "**/*.exe": true,
+        "**/*.bin": true,
+        // Documents
+        "**/*.pdf": true,
+        "**/*.doc": true,
+        "**/*.docx": true,
+        // Images
+        "**/*.gif": true,
+        "**/*.ico": true,
+        "**/*.jpg": true,
+        "**/*.jpeg": true,
+        "**/*.png": true,
+        "**/*.psd": true,
+        "**/*.tga": true,
+        "**/*.tif": true,
+        "**/*.tiff": true,
+        "**/*.spriteatlas": true,
+        // Audio
+        "**/*.mid": true,
+        "**/*.midi": true,
+        "**/*.wav": true,
+        "**/*.mp3": true,
+        // Media
+        "**/*.mp4": true,
+        "**/*.avi": true,
+        "**/*.mov": true,
+        // 3D models
+        "**/*.obj": true,
+        "**/*.OBJ": true,
+        "**/*.fbx": true,
+        "**/*.FBX": true,
+        "**/*.ma": true,
+        "**/*.MA": true,
+        "**/*.lxo": true,
+        "**/*.LXO": true,
+        "**/*.3ds": true,
+        "**/*.3DS": true,
+        "**/*.MAX": true,
+        "**/*.max": true
+    },
+    "search.exclude": {
+        "*.csproj": true
+    },
+    "dotnet.defaultSolution": "Dungeonball-Demake.sln"
+}

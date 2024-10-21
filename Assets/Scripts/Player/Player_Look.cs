@@ -7,8 +7,10 @@ public class Player_Look : MonoBehaviour
     [Header("Input")]
     [SerializeField] private InputReader_Player _inputReader;
 
+    [Header("Component References")]
     [SerializeField] private GameObject _cameraRoot;
 
+    [Header("Settings")]
     [SerializeField] private float _rotationSpeed = 5.0f;
 
     private Vector2 _input;

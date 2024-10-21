@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour
+public class Player_Move : MonoBehaviour
 {
     [Header("Input")]
     [SerializeField] private InputReader_Player _inputReader;
@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
         Vector3 _moveDirection = (transform.right * _inputDirection.x) + (transform.forward * _inputDirection.z);
         Vector3 _velocity = _moveDirection * _moveSpeed;
         _controller.SimpleMove(_velocity);
-        // _controller.SimpleMove(transform.forward * _moveSpeed);
     }
 
     private void OnEnable()

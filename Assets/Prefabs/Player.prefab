@@ -420,6 +420,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1456474377386555940}
+  - component: {fileID: 8586139323322813174}
   m_Layer: 0
   m_Name: AmmoLeft
   m_TagString: Untagged
@@ -442,6 +443,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3209897529171039012}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8586139323322813174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8025036535991274909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe820f0a1ecf6d941bcfc41fa91206a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8660076274540053480
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,6 +609,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7427949603121131673}
+  - component: {fileID: 6372174903721442816}
   m_Layer: 0
   m_Name: AmmoRight
   m_TagString: Untagged
@@ -618,3 +632,15 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3209897529171039012}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6372174903721442816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8952799676623827226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe820f0a1ecf6d941bcfc41fa91206a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

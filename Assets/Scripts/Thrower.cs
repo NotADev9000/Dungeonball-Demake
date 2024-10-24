@@ -2,34 +2,40 @@ using UnityEngine;
 
 public class Thrower : MonoBehaviour
 {
-    [SerializeField] private Transform[] _ammoHoldPoints;
-
     [SerializeField] private float _throwForce = 10f;
 
     [SerializeField] private float _aimRaycastRange = 8f;
 
-    private Vector3 GetThrowDirection(Ray aimDirection, Transform holdPoint)
+    /// <summary>
+    /// Calculates the direction to throw the object based on the thrower's aim direction
+    /// and the point the object is being thrown from.
+    /// </summary>
+    /// <param name="throwPoint">point object is being thrown from</param>
+    /// <param name="aimDirection">direction thrower is aiming</param>
+    /// <returns>direction to throw object</returns>
+    private Vector3 GetThrowDirection(Transform throwPoint, Ray aimDirection)
     {
         // store point hit by aiming ray, store max aim distance if nothing hit
         Vector3 throwDirection = Physics.Raycast(aimDirection, out RaycastHit hit, _aimRaycastRange, 1, QueryTriggerInteraction.Ignore)
             ? hit.point
             : aimDirection.GetPoint(_aimRaycastRange);
-        // subtract hold point position from throw direction to get throwing direction of throwable
-        throwDirection -= holdPoint.position;
+        // subtract throwing point from throw direction to get throwing direction of throwable
+        throwDirection -= throwPoint.position;
         return throwDirection.normalized;
     }
 
-    private void Throw(Ray aimDirection, Transform holdPoint)
+    public void Throw(GameObject objectToThrow, Ray aimDirection)
     {
-        Vector3 throwDirection = GetThrowDirection(aimDirection, holdPoint);
+        Vector3 throwDirection = GetThrowDirection(objectToThrow.transform, aimDirection);
 
-        GameObject ammo = holdPoint.GetChild(0).gameObject;
-        Collider ammoCollider = ammo.GetComponent<Collider>();
-        Rigidbody ammoRigidbody = ammo.GetComponent<Rigidbody>();
+        // detach object from parent so it can be free
+        objectToThrow.transform.parent = null;
 
-        ammo.transform.parent = null;
-        ammoCollider.enabled = true;
-        ammoRigidbody.useGravity = true;
-        ammoRigidbody.AddForce(throwDirection * _throwForce, ForceMode.Impulse);
+        Collider throwableCollider = objectToThrow.GetComponent<Collider>();
+        Rigidbody throwableRigidbody = objectToThrow.GetComponent<Rigidbody>();
+
+        throwableCollider.enabled = true;
+        throwableRigidbody.useGravity = true;
+        throwableRigidbody.AddForce(throwDirection * _throwForce, ForceMode.Impulse);
     }
 }

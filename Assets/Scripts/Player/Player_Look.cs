@@ -1,27 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_Look : MonoBehaviour
 {
-    [Header("Input")]
-    [SerializeField] private InputReader_Player _inputReader;
-
     [Header("Component References")]
     [SerializeField] private GameObject _cameraRoot;
 
     [Header("Settings")]
     [SerializeField] private float _rotationSpeed = 5.0f;
+    [SerializeField] private float _maxLookUpAngle = 90.0f;
+    [SerializeField] private float _maxLookDownAngle = 90.0f;
 
     private Vector2 _input;
 
     private float _targetPitch;
     private float _rotationVelocity;
-
-    private void OnEnable()
-    {
-        _inputReader.LookEvent += OnLook;
-    }
 
     private void Start()
     {
@@ -29,17 +21,18 @@ public class Player_Look : MonoBehaviour
         Cursor.visible = false;
     }
 
-    private void OnLook(Vector2 lookVector)
+    private void LateUpdate()
+    {
+        RotateCamera();
+    }
+
+    public void SetLookDirection(Vector2 lookVector)
     {
         _input = lookVector;
     }
 
-    private void LateUpdate()
-    {
-        CameraRotation();
-    }
-
-    private void CameraRotation()
+    // Un-shamelessly stolen from the FPS Starter Asset "Look" method
+    private void RotateCamera()
     {
         // if there is an input
         if (_input.sqrMagnitude >= 0.001f)
@@ -52,7 +45,7 @@ public class Player_Look : MonoBehaviour
             _rotationVelocity = _input.x * _rotationSpeed * deltaTimeMultiplier;
 
             // clamp our pitch rotation
-            _targetPitch = Mathf.Clamp(_targetPitch, -90, 90);
+            _targetPitch = Mathf.Clamp(_targetPitch, -_maxLookUpAngle, _maxLookDownAngle);
 
             // Update Cinemachine camera target pitch
             _cameraRoot.transform.localRotation = Quaternion.Euler(_targetPitch, 0.0f, 0.0f);

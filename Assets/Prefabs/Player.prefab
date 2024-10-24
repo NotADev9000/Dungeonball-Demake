@@ -590,7 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 530ba2d257b08114cb7bf5f9a5fc9d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cameraRoot: {fileID: 3109351066308634134}
+  _cameraRoot: {fileID: 4419587049602195576}
   _rotationSpeed: 1
   _maxLookUpAngle: 80
   _maxLookDownAngle: 80

@@ -22,6 +22,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "LeftFire",
+                    "type": "Button",
+                    "id": "0b8d2b46-4a30-4333-a038-52a8c101aec4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightFire",
+                    "type": "Button",
+                    "id": "f421680f-0961-4b60-a3da-4d9000dec997",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -132,6 +150,28 @@
                     "processors": "ScaleVector2(x=0.1,y=0.1),InvertVector2(invertX=false)",
                     "groups": "",
                     "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5254890e-85a1-455a-a2ca-486e61e83bfb",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftFire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4d0fe4f7-ad3c-42eb-934f-3656e7aff888",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightFire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

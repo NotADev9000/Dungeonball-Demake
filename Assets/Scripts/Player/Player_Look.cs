@@ -3,7 +3,8 @@ using UnityEngine;
 public class Player_Look : MonoBehaviour
 {
     [Header("Component References")]
-    [SerializeField] private GameObject _cameraRoot;
+    [SerializeField] private Transform _cameraRoot;
+    public Transform CameraRoot => _cameraRoot;
 
     [Header("Settings")]
     [SerializeField] private float _rotationSpeed = 5.0f;
@@ -48,7 +49,7 @@ public class Player_Look : MonoBehaviour
             _targetPitch = Mathf.Clamp(_targetPitch, -_maxLookUpAngle, _maxLookDownAngle);
 
             // Update Cinemachine camera target pitch
-            _cameraRoot.transform.localRotation = Quaternion.Euler(_targetPitch, 0.0f, 0.0f);
+            _cameraRoot.localRotation = Quaternion.Euler(_targetPitch, 0.0f, 0.0f);
 
             // rotate the player left and right
             transform.Rotate(Vector3.up * _rotationVelocity);

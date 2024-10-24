@@ -44,6 +44,24 @@ public partial class @Game_Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""LeftFire"",
+                    ""type"": ""Button"",
+                    ""id"": ""0b8d2b46-4a30-4333-a038-52a8c101aec4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightFire"",
+                    ""type"": ""Button"",
+                    ""id"": ""f421680f-0961-4b60-a3da-4d9000dec997"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -156,6 +174,28 @@ public partial class @Game_Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5254890e-85a1-455a-a2ca-486e61e83bfb"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftFire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4d0fe4f7-ad3c-42eb-934f-3656e7aff888"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightFire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -166,6 +206,8 @@ public partial class @Game_Controls: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+        m_Player_LeftFire = m_Player.FindAction("LeftFire", throwIfNotFound: true);
+        m_Player_RightFire = m_Player.FindAction("RightFire", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -229,12 +271,16 @@ public partial class @Game_Controls: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Look;
+    private readonly InputAction m_Player_LeftFire;
+    private readonly InputAction m_Player_RightFire;
     public struct PlayerActions
     {
         private @Game_Controls m_Wrapper;
         public PlayerActions(@Game_Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Look => m_Wrapper.m_Player_Look;
+        public InputAction @LeftFire => m_Wrapper.m_Player_LeftFire;
+        public InputAction @RightFire => m_Wrapper.m_Player_RightFire;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -250,6 +296,12 @@ public partial class @Game_Controls: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
+            @LeftFire.started += instance.OnLeftFire;
+            @LeftFire.performed += instance.OnLeftFire;
+            @LeftFire.canceled += instance.OnLeftFire;
+            @RightFire.started += instance.OnRightFire;
+            @RightFire.performed += instance.OnRightFire;
+            @RightFire.canceled += instance.OnRightFire;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -260,6 +312,12 @@ public partial class @Game_Controls: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
+            @LeftFire.started -= instance.OnLeftFire;
+            @LeftFire.performed -= instance.OnLeftFire;
+            @LeftFire.canceled -= instance.OnLeftFire;
+            @RightFire.started -= instance.OnRightFire;
+            @RightFire.performed -= instance.OnRightFire;
+            @RightFire.canceled -= instance.OnRightFire;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -281,5 +339,7 @@ public partial class @Game_Controls: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnLeftFire(InputAction.CallbackContext context);
+        void OnRightFire(InputAction.CallbackContext context);
     }
 }

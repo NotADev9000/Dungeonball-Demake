@@ -9,6 +9,8 @@ public class InputReader_Player : ScriptableObject, IPlayerActions
 {
     public event Action<Vector2> MoveEvent;
     public event Action<Vector2> LookEvent;
+    public event Action LeftFireEvent;
+    public event Action RightFireEvent;
 
     private Game_Controls _playerInput;
 
@@ -52,4 +54,21 @@ public class InputReader_Player : ScriptableObject, IPlayerActions
         LookEvent?.Invoke(context.ReadValue<Vector2>());
     }
 
+    public void OnLeftFire(InputAction.CallbackContext context)
+    {
+        OnFire(context, LeftFireEvent);
+    }
+
+    public void OnRightFire(InputAction.CallbackContext context)
+    {
+        OnFire(context, RightFireEvent);
+    }
+
+    private void OnFire(InputAction.CallbackContext context, Action Event)
+    {
+        if (context.started)
+        {
+            Event?.Invoke();
+        }
+    }
 }

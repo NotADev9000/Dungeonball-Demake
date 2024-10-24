@@ -7,10 +7,10 @@ public class AmmoCarrier_LeftRight : MonoBehaviour
     [SerializeField] private AmmoCarryPoint _rightHold;
     public AmmoCarryPoint RightHold { get => _rightHold; }
 
-    public bool TryGetAmmo(AmmoCarryPoint carrier, out IAmThrowable throwable)
+    public bool TryGetAmmo(AmmoCarryPoint carrier, out Throwable throwable)
     {
         // get throwable object at carry point
-        throwable = carrier.GetComponentInChildren<IAmThrowable>();
+        throwable = carrier.GetComponentInChildren<Throwable>();
         return throwable != null;
     }
 }

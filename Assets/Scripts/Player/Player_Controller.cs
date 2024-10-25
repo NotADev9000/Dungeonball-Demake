@@ -78,9 +78,8 @@ public class Player_Controller : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
-
         var look = GetComponent<Player_Look>();
+        var ammoCarrier = GetComponent<AmmoCarrier_LeftRight>();
         var thrower = GetComponent<Thrower>();
 
         Vector3 aimOrigin = look.CameraRoot.transform.position;
@@ -93,8 +92,20 @@ public class Player_Controller : MonoBehaviour
             ? hit.point
             : aimRay.GetPoint(aimRange);
 
+        Gizmos.color = Color.green;
         Gizmos.DrawLine(aimOrigin, aimPoint);
 
+        // left hold
+        Vector3 throwDirection = aimPoint - ammoCarrier.LeftHold.transform.position;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(ammoCarrier.LeftHold.transform.position, ammoCarrier.LeftHold.transform.position + throwDirection * aimRange);
+
+        // right hold
+        throwDirection = aimPoint - ammoCarrier.RightHold.transform.position;
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(ammoCarrier.RightHold.transform.position, ammoCarrier.RightHold.transform.position + throwDirection * aimRange);
     }
 
     #endregion

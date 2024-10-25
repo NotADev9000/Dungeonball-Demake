@@ -73,4 +73,29 @@ public class Player_Controller : MonoBehaviour
     {
         return _look.CameraRoot.forward;
     }
+
+    #region DEBUGGING
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+
+        var look = GetComponent<Player_Look>();
+        var thrower = GetComponent<Thrower>();
+
+        Vector3 aimOrigin = look.CameraRoot.transform.position;
+        Vector3 aimDirection = look.CameraRoot.transform.forward;
+        float aimRange = thrower.AimRaycastRange;
+
+        // ray straight out from camera, stops drawing if hits something
+        Ray aimRay = new Ray(aimOrigin, aimDirection);
+        Vector3 aimPoint = Physics.Raycast(aimRay, out RaycastHit hit, aimRange, 1, QueryTriggerInteraction.Ignore)
+            ? hit.point
+            : aimRay.GetPoint(aimRange);
+
+        Gizmos.DrawLine(aimOrigin, aimPoint);
+
+    }
+
+    #endregion
 }

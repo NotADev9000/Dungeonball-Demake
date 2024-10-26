@@ -76,8 +76,13 @@ public class Player_Controller : MonoBehaviour
 
     #region DEBUGGING
 
-    void OnDrawGizmos()
+    [Header("Debugging")]
+    [SerializeField] private bool _drawThrowerGizmos = false;
+    [SerializeField] private bool _drawGrabberGizmos = false;
+
+    private void OnDrawGizmos()
     {
+
         var look = GetComponent<Player_Look>();
         var ammoCarrier = GetComponent<AmmoCarrier_LeftRight>();
         var thrower = GetComponent<Thrower>();
@@ -86,6 +91,11 @@ public class Player_Controller : MonoBehaviour
         Vector3 aimDirection = look.CameraRoot.transform.forward;
         float aimRange = thrower.AimRaycastRange;
 
+        if (_drawThrowerGizmos) DrawThrowGizmos(ammoCarrier, aimOrigin, aimDirection, aimRange);
+    }
+
+    private void DrawThrowGizmos(AmmoCarrier_LeftRight ammoCarrier, Vector3 aimOrigin, Vector3 aimDirection, float aimRange)
+    {
         // ray straight out from camera, stops drawing if hits something
         Ray aimRay = new Ray(aimOrigin, aimDirection);
         Vector3 aimPoint = Physics.Raycast(aimRay, out RaycastHit hit, aimRange, 1, QueryTriggerInteraction.Ignore)
@@ -99,13 +109,13 @@ public class Player_Controller : MonoBehaviour
         Vector3 throwDirection = aimPoint - ammoCarrier.LeftHold.transform.position;
 
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(ammoCarrier.LeftHold.transform.position, ammoCarrier.LeftHold.transform.position + throwDirection * aimRange);
+        Gizmos.DrawLine(ammoCarrier.LeftHold.transform.position, ammoCarrier.LeftHold.transform.position + throwDirection);
 
         // right hold
         throwDirection = aimPoint - ammoCarrier.RightHold.transform.position;
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(ammoCarrier.RightHold.transform.position, ammoCarrier.RightHold.transform.position + throwDirection * aimRange);
+        Gizmos.DrawLine(ammoCarrier.RightHold.transform.position, ammoCarrier.RightHold.transform.position + throwDirection);
     }
 
     #endregion

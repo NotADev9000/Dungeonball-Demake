@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowDebugText: 0
-  ShowCameraFrustum: 1
+  ShowCameraFrustum: 0
   IgnoreTimeScale: 0
   WorldUpOverride: {fileID: 0}
   ChannelMask: -1
@@ -620,7 +620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76f2b81b144999243a008b42f4645836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _throwForce: 10
+  _throwForce: 35
   _aimRaycastRange: 8
 --- !u!1 &8952799676623827226
 GameObject:

@@ -10,29 +10,32 @@ public class Grabber : MonoBehaviour
     [SerializeField] private float _grabSphereRadius = 0.5f;
     public float GrabSphereRadius { get => _grabSphereRadius; }
 
-    public void Grab(Vector3 aimOrigin, Vector3 aimDirection)
+    // TODO: Clean this up when Debug statements are no longer needed
+    public bool TryGrabGrabbable(Vector3 aimOrigin, Vector3 aimDirection, out Grabbable grabbable)
     {
-        Grabbable grabbable = null;
+        grabbable = null;
+
         if (TryGetLineOfSightObject(aimOrigin, aimDirection, ref grabbable))
         {
             Debug.Log("Grabbable in LOS: " + grabbable.gameObject.name);
+            return true;
         }
         else
         {
-            // Debug.Log("NO GRABBABLE OBJECT IN LOS");
-
             if (TryGetSphereOfSightObject(aimOrigin, aimDirection, ref grabbable))
             {
                 Debug.Log("Grabbable in SOS: " + grabbable.gameObject.name);
+                return true;
             }
             else
             {
-                Debug.Log("NO GRABBABLE OBJECT IN SOS");
+                Debug.Log("NO GRABBABLE OBJECT IN SIGHT");
             }
         }
+        return false;
     }
 
-    public bool TryGetLineOfSightObject(Vector3 aimOrigin, Vector3 aimDirection, ref Grabbable grabbable)
+    private bool TryGetLineOfSightObject(Vector3 aimOrigin, Vector3 aimDirection, ref Grabbable grabbable)
     {
         if (Physics.Raycast(aimOrigin, aimDirection, out RaycastHit hit, _grabRange, _grabbableLayer))
         {
@@ -41,11 +44,10 @@ public class Grabber : MonoBehaviour
         return grabbable != null;
     }
 
-    public bool TryGetSphereOfSightObject(Vector3 aimOrigin, Vector3 aimDirection, ref Grabbable grabbable)
+    private bool TryGetSphereOfSightObject(Vector3 aimOrigin, Vector3 aimDirection, ref Grabbable grabbable)
     {
         if (Physics.SphereCast(aimOrigin, _grabSphereRadius, aimDirection, out RaycastHit hit, _grabRange, _grabbableLayer))
         {
-            Debug.Log("SphereCast hit: " + hit.collider.gameObject.name);
             grabbable = hit.collider.gameObject.GetComponent<Grabbable>();
         }
         return grabbable != null;

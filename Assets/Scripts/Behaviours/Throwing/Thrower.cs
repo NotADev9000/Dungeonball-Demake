@@ -39,6 +39,7 @@ public class Thrower : MonoBehaviour
 
         throwableCollider.enabled = true;
         throwableRigidbody.useGravity = true;
+        throwableRigidbody.isKinematic = false;
         throwableRigidbody.AddForce(throwDirection * _throwForce, ForceMode.Impulse);
     }
 }

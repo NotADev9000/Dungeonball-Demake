@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Player_Move), typeof(Player_Look), typeof(AmmoCarrier_LeftRight))]
@@ -67,7 +66,10 @@ public class Player_Controller : MonoBehaviour
         }
         else
         {
-            _grabber.Grab(GetAimOrigin(), GetAimDirection());
+            if (_grabber.TryGrabGrabbable(GetAimOrigin(), GetAimDirection(), out Grabbable grabbable))
+            {
+                _ammoCarrier.PickupAmmo(ammoCarryPoint, grabbable);
+            }
         }
     }
 

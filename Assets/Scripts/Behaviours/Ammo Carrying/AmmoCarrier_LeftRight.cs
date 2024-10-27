@@ -13,4 +13,16 @@ public class AmmoCarrier_LeftRight : MonoBehaviour
         throwable = carrier.GetComponentInChildren<Throwable>();
         return throwable != null;
     }
+
+    public void PickupAmmo(AmmoCarryPoint carrier, Grabbable grabbable)
+    {
+        if (carrier.GetComponentInChildren<Grabbable>() != null)
+        {
+            Debug.LogError(carrier.name + " already has ammo! Should this method be called?");
+            return;
+        }
+
+        grabbable.transform.parent = carrier.transform;
+        grabbable.OnPickup();
+    }
 }

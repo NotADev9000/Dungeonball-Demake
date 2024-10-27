@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516147698202881915}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.34, y: 1.5001, z: -11.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -595,8 +595,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cameraRoot: {fileID: 4419587049602195576}
   _rotationSpeed: 1
-  _maxLookUpAngle: 80
-  _maxLookDownAngle: 80
+  _maxLookUpAngle: 60
+  _maxLookDownAngle: 60
 --- !u!114 &2608735907959908921
 MonoBehaviour:
   m_ObjectHideFlags: 0

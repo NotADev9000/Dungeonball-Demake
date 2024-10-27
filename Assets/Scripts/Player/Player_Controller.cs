@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Player_Move), typeof(Player_Look), typeof(Thrower))]
+[RequireComponent(typeof(Player_Move), typeof(Player_Look), typeof(AmmoCarrier_LeftRight))]
+[RequireComponent(typeof(Thrower), typeof(Grabber))]
 public class Player_Controller : MonoBehaviour
 {
     [Header("Input")]
@@ -11,6 +12,7 @@ public class Player_Controller : MonoBehaviour
     private Player_Look _look;
     private AmmoCarrier_LeftRight _ammoCarrier;
     private Thrower _thrower;
+    private Grabber _grabber;
 
     private void Awake()
     {
@@ -18,6 +20,7 @@ public class Player_Controller : MonoBehaviour
         _look = GetComponent<Player_Look>();
         _ammoCarrier = GetComponent<AmmoCarrier_LeftRight>();
         _thrower = GetComponent<Thrower>();
+        _grabber = GetComponent<Grabber>();
     }
 
     private void OnEnable()
@@ -62,6 +65,10 @@ public class Player_Controller : MonoBehaviour
         {
             _thrower.Throw(throwable, GetAimOrigin(), GetAimDirection());
         }
+        else
+        {
+            _grabber.Grab(GetAimOrigin(), GetAimDirection());
+        }
     }
 
     private Vector3 GetAimOrigin()
@@ -76,6 +83,8 @@ public class Player_Controller : MonoBehaviour
 
     #region DEBUGGING
 
+#if UNITY_EDITOR
+
     [Header("Debugging")]
     [SerializeField] private bool _drawThrowerGizmos = false;
     [SerializeField] private bool _drawGrabberGizmos = false;
@@ -86,12 +95,17 @@ public class Player_Controller : MonoBehaviour
         var look = GetComponent<Player_Look>();
         var ammoCarrier = GetComponent<AmmoCarrier_LeftRight>();
         var thrower = GetComponent<Thrower>();
+        var grabber = GetComponent<Grabber>();
 
         Vector3 aimOrigin = look.CameraRoot.transform.position;
         Vector3 aimDirection = look.CameraRoot.transform.forward;
         float aimRange = thrower.AimRaycastRange;
+        float grabRange = grabber.GrabRange;
+        float grabSphereRadius = grabber.GrabSphereRadius;
+        LayerMask grabbableLayer = grabber.GrabbableLayer;
 
         if (_drawThrowerGizmos) DrawThrowGizmos(ammoCarrier, aimOrigin, aimDirection, aimRange);
+        if (_drawGrabberGizmos) DrawGrabberGizmos(aimOrigin, aimDirection, grabRange, grabSphereRadius, grabbableLayer);
     }
 
     private void DrawThrowGizmos(AmmoCarrier_LeftRight ammoCarrier, Vector3 aimOrigin, Vector3 aimDirection, float aimRange)
@@ -117,6 +131,40 @@ public class Player_Controller : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(ammoCarrier.RightHold.transform.position, ammoCarrier.RightHold.transform.position + throwDirection);
     }
+
+    private void DrawGrabberGizmos(Vector3 aimOrigin, Vector3 aimDirection, float grabRange, float grabSphereRadius, LayerMask grabbableLayer)
+    {
+        Ray aimRay = new Ray(aimOrigin, aimDirection);
+        Vector3 aimPoint;
+        if (Physics.Raycast(aimRay, out RaycastHit hit, grabRange, grabbableLayer, QueryTriggerInteraction.Ignore))
+        {
+            aimPoint = hit.point;
+            Gizmos.color = Color.green;
+        }
+        else
+        {
+            aimPoint = aimRay.GetPoint(grabRange);
+            Gizmos.color = Color.red;
+        }
+        Gizmos.DrawLine(aimOrigin, aimPoint);
+
+        if (Physics.SphereCast(aimRay, grabSphereRadius, out hit, grabRange, grabbableLayer, QueryTriggerInteraction.Ignore))
+        {
+            Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
+            Gizmos.color = transparentGreen;
+        }
+        else
+        {
+            Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+            Gizmos.color = transparentRed;
+        }
+
+        Gizmos.DrawSphere(aimOrigin, grabSphereRadius);
+        Gizmos.DrawSphere(aimOrigin + aimDirection * (grabRange / 2), grabSphereRadius);
+        Gizmos.DrawSphere(aimOrigin + aimDirection * grabRange, grabSphereRadius);
+    }
+
+#endif
 
     #endregion
 }

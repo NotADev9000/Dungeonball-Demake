@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 7105602161663634159}
   - component: {fileID: 6671436913339692302}
   - component: {fileID: 7835069401842500932}
-  m_Layer: 0
+  - component: {fileID: 3418294554711310553}
+  m_Layer: 3
   m_Name: Dodgeball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34084,7 +34085,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.25
   m_Center: {x: 0, y: 0, z: 0}
@@ -34133,5 +34134,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ecd3bcafe08db724cb3c9d7820cf29b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3418294554711310553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416326816937798445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f054ebd53436b747b95a826bc3ae576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

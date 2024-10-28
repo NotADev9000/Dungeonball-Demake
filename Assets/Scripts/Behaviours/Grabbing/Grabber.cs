@@ -8,7 +8,12 @@ public class Grabber : MonoBehaviour
     [SerializeField] private float _grabRange = 2f;
     public float GrabRange { get => _grabRange; }
     [SerializeField] private float _grabSphereRadius = 0.5f;
+
+    private Grabbable _scannedGrabbable;
+
     public float GrabSphereRadius { get => _grabSphereRadius; }
+
+
 
     // TODO: Clean this up when Debug statements are no longer needed
     public bool TryGrabGrabbable(Vector3 aimOrigin, Vector3 aimDirection, out Grabbable grabbable)
@@ -17,14 +22,25 @@ public class Grabber : MonoBehaviour
 
         if (TryGetLineOfSightObject(aimOrigin, aimDirection, ref grabbable))
         {
-            Debug.Log("Grabbable in LOS: " + grabbable.gameObject.name);
             return true;
         }
         else
         {
-            if (TryGetSphereOfSightObject(aimOrigin, aimDirection, ref grabbable))
+            // if (TryGetSphereOfSightObject(aimOrigin, aimDirection, ref grabbable))
+            if (_scannedGrabbable != null)
             {
-                Debug.Log("Grabbable in SOS: " + grabbable.gameObject.name);
+                grabbable = _scannedGrabbable;
+
+                // if (_scannedGrabbable?.gameObject.name != grabbable.gameObject.name)
+                // {
+                //     Debug.Log("SCANNED GRABBABLE: " + _scannedGrabbable?.gameObject.name);
+                //     Debug.Log("CLICKED GRABBABLE: " + grabbable?.gameObject.name);
+                // }
+                // else
+                // {
+                //     Debug.Log("true");
+                // }
+
                 return true;
             }
             else
@@ -44,12 +60,21 @@ public class Grabber : MonoBehaviour
         return grabbable != null;
     }
 
-    private bool TryGetSphereOfSightObject(Vector3 aimOrigin, Vector3 aimDirection, ref Grabbable grabbable)
+    public void ScanForGrabbables(Vector3 aimOrigin, Vector3 aimDirection)
     {
+        _scannedGrabbable = null;
         if (Physics.SphereCast(aimOrigin, _grabSphereRadius, aimDirection, out RaycastHit hit, _grabRange, _grabbableLayer))
         {
-            grabbable = hit.collider.gameObject.GetComponent<Grabbable>();
+            _scannedGrabbable = hit.collider.gameObject.GetComponent<Grabbable>();
         }
-        return grabbable != null;
     }
+
+    // private bool TryGetSphereOfSightObject(Vector3 aimOrigin, Vector3 aimDirection, ref Grabbable grabbable)
+    // {
+    //     if (Physics.SphereCast(aimOrigin, _grabSphereRadius, aimDirection, out RaycastHit hit, _grabRange, _grabbableLayer))
+    //     {
+    //         grabbable = hit.collider.gameObject.GetComponent<Grabbable>();
+    //     }
+    //     return grabbable != null;
+    // }
 }

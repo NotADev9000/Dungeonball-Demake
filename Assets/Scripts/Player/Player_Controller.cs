@@ -38,6 +38,11 @@ public class Player_Controller : MonoBehaviour
         _inputReader.RightFireEvent -= OnRightFireInput;
     }
 
+    private void Update()
+    {
+        _grabber.ScanForGrabbables(GetAimOrigin(), GetAimDirection());
+    }
+
     private void OnMovementInput(Vector2 directionVector)
     {
         _movement.SetMoveDirection(directionVector);

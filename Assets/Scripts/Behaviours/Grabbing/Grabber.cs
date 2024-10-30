@@ -8,12 +8,10 @@ public class Grabber : MonoBehaviour
     [SerializeField] private float _grabRange = 2f;
     public float GrabRange { get => _grabRange; }
     [SerializeField] private float _grabSphereRadius = 0.5f;
-
-    private Grabbable _scannedGrabbable;
-
     public float GrabSphereRadius { get => _grabSphereRadius; }
 
-
+    private Grabbable _scannedGrabbable;
+    public Grabbable ScannedGrabbable { get => _scannedGrabbable; }
 
     // TODO: Clean this up when Debug statements are no longer needed
     public bool TryGrabGrabbable(Vector3 aimOrigin, Vector3 aimDirection, out Grabbable grabbable)

@@ -1677,6 +1677,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1133243584}
+  - component: {fileID: 1133243585}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -1701,6 +1702,23 @@ Transform:
   - {fileID: 1803549269}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1133243585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133243583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6635448bed62d84dbfbb8b62c7a9711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerController: {fileID: 1841369038}
+  _crosshair: {fileID: 1776565865}
+  _crosshairDefaultScale: 1
+  _crosshairGrowScale: 2
+  _crosshairSmoothTime: 0.05
 --- !u!1 &1169850064
 GameObject:
   m_ObjectHideFlags: 0
@@ -2307,6 +2325,7 @@ GameObject:
   - component: {fileID: 1776565864}
   - component: {fileID: 1776565866}
   - component: {fileID: 1776565865}
+  - component: {fileID: 1776565867}
   m_Layer: 5
   m_Name: Crosshair
   m_TagString: Untagged
@@ -2331,7 +2350,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 72, y: 72}
+  m_SizeDelta: {x: 24, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1776565865
 MonoBehaviour:
@@ -2346,14 +2365,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.76862746}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e54c054d25018224497ec6443ebba5c9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bcd31c12de1ca0a47aa3e9cf9ac8f58d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2371,6 +2390,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1776565863}
   m_CullTransparentMesh: 1
+--- !u!114 &1776565867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776565863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 0, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1803549268
 GameObject:
   m_ObjectHideFlags: 0
@@ -2473,6 +2507,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1841369038 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1240878540400708911, guid: cf9961d2c4ee19d44a18cca772121a87,
+    type: 3}
+  m_PrefabInstance: {fileID: 4947255095744417202}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b0912eac6033940b2941dd7d68dec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1874778144
 GameObject:
   m_ObjectHideFlags: 0
@@ -3471,7 +3517,7 @@ PrefabInstance:
     - target: {fileID: 1360110303432057134, guid: cf9961d2c4ee19d44a18cca772121a87,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.14
+      value: -6.49
       objectReference: {fileID: 0}
     - target: {fileID: 1360110303432057134, guid: cf9961d2c4ee19d44a18cca772121a87,
         type: 3}
@@ -3481,7 +3527,7 @@ PrefabInstance:
     - target: {fileID: 1360110303432057134, guid: cf9961d2c4ee19d44a18cca772121a87,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.63
+      value: -13.03
       objectReference: {fileID: 0}
     - target: {fileID: 1360110303432057134, guid: cf9961d2c4ee19d44a18cca772121a87,
         type: 3}

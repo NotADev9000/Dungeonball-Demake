@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Player_Move), typeof(Player_Look), typeof(AmmoCarrier_LeftRight))]
@@ -7,11 +9,17 @@ public class Player_Controller : MonoBehaviour
     [Header("Input")]
     [SerializeField] private InputReader_Player _inputReader;
 
+    // Component References
     private Player_Move _movement;
     private Player_Look _look;
     private AmmoCarrier_LeftRight _ammoCarrier;
     private Thrower _thrower;
     private Grabber _grabber;
+
+    private bool _lastScanFoundGrabbable = false;
+
+    // Events
+    public event Action<bool> OnScannedForGrabbablesChange;
 
     private void Awake()
     {
@@ -41,6 +49,7 @@ public class Player_Controller : MonoBehaviour
     private void Update()
     {
         _grabber.ScanForGrabbables(GetAimOrigin(), GetAimDirection());
+        CheckScannedGrabbablesHasChanged();
     }
 
     private void OnMovementInput(Vector2 directionVector)
@@ -65,6 +74,12 @@ public class Player_Controller : MonoBehaviour
 
     private void OnFireInput(AmmoCarryPoint ammoCarryPoint)
     {
+        // Ideas for dealing with ammo that is in the process of being grabbed:
+        // 1. Move carry point to grabbable instantly and parent grabbable to carry point
+        //    Then lerp arm to carry point and then lerp arm & carry point back to original position
+        // 2. TryGetAmmo from carrier OR get grabbable currently being grabbed
+        //    - this means reference to grabbable being grabbed is needed before parenting to carry point
+
         if (_ammoCarrier.TryGetAmmo(ammoCarryPoint, out Throwable throwable))
         {
             _thrower.Throw(throwable, GetAimOrigin(), GetAimDirection());
@@ -76,6 +91,20 @@ public class Player_Controller : MonoBehaviour
                 _ammoCarrier.PickupAmmo(ammoCarryPoint, grabbable);
             }
         }
+    }
+
+    /// <summary>
+    /// Checks if player has changed from "hovering over target" to "not hovering over target" or vice versa.
+    /// Invokes event if change is detected.
+    /// </summary>
+    private void CheckScannedGrabbablesHasChanged()
+    {
+        // Is player hovering over a target this frame?
+        bool foundGrabbableThisFrame = _grabber.ScannedGrabbable != null;
+        // If the state has changed, invoke event
+        if (_lastScanFoundGrabbable != foundGrabbableThisFrame) OnScannedForGrabbablesChange?.Invoke(foundGrabbableThisFrame);
+        // Update state for next frame
+        _lastScanFoundGrabbable = foundGrabbableThisFrame;
     }
 
     private Vector3 GetAimOrigin()

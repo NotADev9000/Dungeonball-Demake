@@ -101,7 +101,7 @@ public class Player_Controller : MonoBehaviour
     {
         // Is player hovering over a target this frame?
         bool foundGrabbableThisFrame = _grabber.ScannedGrabbable != null;
-        // If the state has changed, invoke event
+        // If the state has changed since the last scan, invoke event
         if (_lastScanFoundGrabbable != foundGrabbableThisFrame) OnScannedForGrabbablesChange?.Invoke(foundGrabbableThisFrame);
         // Update state for next frame
         _lastScanFoundGrabbable = foundGrabbableThisFrame;

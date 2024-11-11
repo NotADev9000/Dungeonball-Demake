@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8161456961210939269}
   - component: {fileID: 5147366743587565744}
   - component: {fileID: 7175436878348597242}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4419587049602195576}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CameraRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 8105072249633310478}
   - component: {fileID: 4859579971079859667}
   - component: {fileID: 2702200515049765828}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: VIS_DEBUG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 2181244621428711994}
   - component: {fileID: 6828207994004471793}
   - component: {fileID: 854751825943293874}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CinemachineCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1456474377386555940}
   - component: {fileID: 8586139323322813174}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AmmoLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,7 +452,7 @@ GameObject:
   - component: {fileID: 2608735907959908921}
   - component: {fileID: 8354251955443558936}
   - component: {fileID: 5420686780189888909}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,7 +566,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 11400000, guid: a58ba8ae69910d445864195d29d2004b, type: 2}
-  _velocity: {x: 0, y: 0, z: 0}
   _drawThrowerGizmos: 0
   _drawGrabberGizmos: 0
 --- !u!114 &304496645820114751
@@ -653,7 +652,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7427949603121131673}
   - component: {fileID: 6372174903721442816}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AmmoRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -43,7 +43,7 @@ public class Grabber : MonoBehaviour
             }
             else
             {
-                Debug.Log("NO GRABBABLE OBJECT IN SIGHT");
+                // Debug.Log("NO GRABBABLE OBJECT IN SIGHT");
             }
         }
         return false;

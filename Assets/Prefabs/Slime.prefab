@@ -348,9 +348,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
-  _DEBUGmanualPathRecalc: 1
+  _timeBetweenPathRecalc: 0.2
   _groundCheckDistance: 1.05
-  _jumpStrength: 5
+  _jumpStrength: 20
+  _gravityForce: 80
 --- !u!195 &8875488252909852050
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -10,18 +10,18 @@ public class Slime : MonoBehaviour
 
     [SerializeField] private float _timeBetweenPathRecalc = 0.2f;
 
-    [SerializeField] private bool _DebugManualPathRecalc = false;
-
     [SerializeField] private float _groundCheckDistance = 3f;
 
     [SerializeField] private float _jumpStrength = 20f;
+
+    [SerializeField] private float _gravityForce = 80f;
 
     private Rigidbody _rb;
     private NavMeshAgent _agent;
     private Vector3[] _currentPathCorners;
     private int _currentPathIndex;
     private float _jumpTimer;
-    private float _recalcTimer;
+    private float _pathRecalculationTimer;
 
     private bool _groundedLastFrame = false;
 
@@ -38,75 +38,50 @@ public class Slime : MonoBehaviour
     /**
      * Need to play around more with using SetDestination vs CalculatePath + SetPath.
      * SD result may not be available immediately, but CP+SP is available same frame.
-     * 
-     * Also deciding when to recalculate path, either upon landing or every x seconds.
-     * but might not matter if doing slime rotation direction automatically.
      *
-     * Also need to add higher gravity to slime and experiment with jump strength.
+     * Also the option of calculating path and then manually jumping the slime towards
+     * each corner. Slightly tighter control of Slime but no obstacle avoidance.
+     * can use getNextPathDirection for this.
+     * 
+     * Re-calcing path every x seconds and when first landing is best.
+     * but make sure to reset timer when landing and re-calcing path.
+     *
+     * Also need to experiment with gravity & jump strength.
      */
 
     private void Update()
     {
-        if (_DebugManualPathRecalc && Input.GetKeyDown(KeyCode.E) && _target != null)
-        {
-            // NavMeshPath path = new NavMeshPath();
-            // _agent.SetDestination(_target.position);
-            _agent.CalculatePath(_target.position, _path);
-            _agent.SetPath(_path);
+        if (Input.GetKeyDown(KeyCode.E) && _target != null) CalculatePathToTarget();
 
+        UpdatePathRecalculation();
+        HandleBehaviour();
+    }
 
-            // if (_path.status == NavMeshPathStatus.PathComplete)
-            // {
-            //     Debug.Log(_path.corners);
-            //     _currentPathCorners = _path.corners;
-            //     _currentPathIndex = 0;
-            // }
-        }
-
-        // Debug.Log(_agent.nextPosition);
-
-        _recalcTimer += Time.deltaTime;
-        if (_recalcTimer >= _timeBetweenPathRecalc)
-        {
-            _recalcTimer = 0;
-            // _agent.SetDestination(_target.position);
-            _agent.CalculatePath(_target.position, _path);
-            if (_path != null) _agent.SetPath(_path);
-        }
-
+    private void HandleBehaviour()
+    {
         if (IsGrounded())
         {
             _jumpTimer += Time.deltaTime;
             if (!_groundedLastFrame)
             {
-                _agent.Warp(transform.position);
-                // _agent.CalculatePath(_target.position, _path);
-                // if (_path != null) _agent.SetPath(_path);
-                // _agent.SetDestination(_target.position);
-            }
-            _groundedLastFrame = true;
-
-            if (_jumpTimer >= 0.2f)
-            {
-                // _agent.CalculatePath(_target.position, _path);
-                // if (_path != null) _agent.SetPath(_path);
+                OnLandedThisFrame();
             }
         }
         else
         {
             _groundedLastFrame = false;
+            ApplyGravity();
         }
     }
 
     private void FixedUpdate()
     {
         // Vector3 nextDirection = GetNextPathDirection();
-        // Vector3 nextDirection = (_agent.desiredVelocity).normalized;
 
         if (_jumpTimer >= 0.3f && IsGrounded())
         {
-            Vector3 nextDirection = (_agent.nextPosition - transform.position).normalized;
-            // _agent.updatePosition = false;
+            // Vector3 nextDirection = (_agent.nextPosition - transform.position).normalized;
+            Vector3 nextDirection = _agent.desiredVelocity.normalized;
             _rb.AddForce((nextDirection + Vector3.up) * _jumpStrength, ForceMode.Impulse);
             _jumpTimer = 0;
         }
@@ -114,6 +89,18 @@ public class Slime : MonoBehaviour
         // Rotate the agent
         // Quaternion targetRotation = Quaternion.LookRotation(nextDirection);
         // transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _agent.angularSpeed * Time.deltaTime);
+    }
+
+    private void ApplyGravity()
+    {
+        _rb.AddForce(Vector3.down * _gravityForce);
+    }
+
+    private void OnLandedThisFrame()
+    {
+        _agent.Warp(transform.position);
+        RecalculatePathToTarget();
+        _groundedLastFrame = true;
     }
 
     private Vector3 GetNextPathDirection()
@@ -134,6 +121,39 @@ public class Slime : MonoBehaviour
         return (targetPosition - transform.position).normalized;
     }
 
+    private void UpdatePathRecalculation()
+    {
+        _pathRecalculationTimer += Time.deltaTime;
+        if (_pathRecalculationTimer >= _timeBetweenPathRecalc)
+        {
+            RecalculatePathToTarget();
+        }
+    }
+
+    private void RecalculatePathToTarget()
+    {
+        _pathRecalculationTimer = 0f;
+        CalculatePathToTarget();
+    }
+
+    private void CalculatePathToTarget()
+    {
+        // OPTION 1 - async
+        // _agent.SetDestination(_target.position);
+
+        // OPTION 2 - calculated immediately
+        _agent.CalculatePath(_target.position, _path);
+        if (_path != null) _agent.SetPath(_path);
+
+        // OPTION 3 - get path corners and manually move unit (no obstacle avoidance)
+        // _agent.CalculatePath(_target.position, _path);
+        // if (_path.status == NavMeshPathStatus.PathComplete)
+        // {
+        //     _currentPathCorners = _path.corners;
+        //     _currentPathIndex = 0;
+        // }
+    }
+
     private bool IsGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, _groundCheckDistance);
@@ -144,13 +164,13 @@ public class Slime : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + (Vector3.down * _groundCheckDistance));
 
-        if (_currentPathCorners != null)
-        {
-            Gizmos.color = Color.red;
-            for (int i = _currentPathIndex; i < _currentPathCorners.Length; i++)
-            {
-                Gizmos.DrawSphere(_currentPathCorners[i], 0.1f);
-            }
-        }
+        // if (_currentPathCorners != null)
+        // {
+        //     Gizmos.color = Color.red;
+        //     for (int i = _currentPathIndex; i < _currentPathCorners.Length; i++)
+        //     {
+        //         Gizmos.DrawSphere(_currentPathCorners[i], 0.1f);
+        //     }
+        // }
     }
 }

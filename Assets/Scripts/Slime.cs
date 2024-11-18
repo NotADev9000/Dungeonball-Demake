@@ -17,6 +17,7 @@ public class Slime : MonoBehaviour
     [SerializeField] private float _gravityForce = 80f;
 
     private Rigidbody _rb;
+    private BoxCollider _boxCollider;
     private NavMeshAgent _agent;
     private Vector3[] _currentPathCorners;
     private int _currentPathIndex;
@@ -31,8 +32,10 @@ public class Slime : MonoBehaviour
     {
         _path = new NavMeshPath();
         _rb = GetComponent<Rigidbody>();
+        _boxCollider = GetComponent<BoxCollider>();
         _agent = GetComponent<NavMeshAgent>();
         _agent.updatePosition = false;
+        _agent.updateRotation = false;
     }
 
     /**
@@ -54,7 +57,19 @@ public class Slime : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && _target != null) CalculatePathToTarget();
 
         UpdatePathRecalculation();
+        HandleRotation();
         HandleBehaviour();
+    }
+
+    private void HandleRotation()
+    {
+        // Quaternion targetRotation = Quaternion.LookRotation(_agent.desiredVelocity.normalized);
+        // targetRotation.eulerAngles = new Vector3(0, targetRotation.eulerAngles.y, 0);
+        Vector3 nextPos = (_target.position - transform.position).normalized;
+        nextPos.y = 0f;
+        Quaternion targetRotation = Quaternion.LookRotation(nextPos);
+        targetRotation.eulerAngles = new Vector3(0, targetRotation.eulerAngles.y, 0);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _agent.angularSpeed * Time.deltaTime);
     }
 
     private void HandleBehaviour()
@@ -85,10 +100,6 @@ public class Slime : MonoBehaviour
             _rb.AddForce((nextDirection + Vector3.up) * _jumpStrength, ForceMode.Impulse);
             _jumpTimer = 0;
         }
-
-        // Rotate the agent
-        // Quaternion targetRotation = Quaternion.LookRotation(nextDirection);
-        // transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _agent.angularSpeed * Time.deltaTime);
     }
 
     private void ApplyGravity()
@@ -142,7 +153,8 @@ public class Slime : MonoBehaviour
         // _agent.SetDestination(_target.position);
 
         // OPTION 2 - calculated immediately
-        _agent.CalculatePath(_target.position, _path);
+        Vector3 targetPosition = new Vector3(_target.position.x, 0, _target.position.z);
+        _agent.CalculatePath(targetPosition, _path);
         if (_path != null) _agent.SetPath(_path);
 
         // OPTION 3 - get path corners and manually move unit (no obstacle avoidance)
@@ -156,13 +168,13 @@ public class Slime : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, Vector3.down, _groundCheckDistance);
+        return Physics.Raycast(transform.position, Vector3.down, (_boxCollider.bounds.size.y / 2) + _groundCheckDistance);
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + (Vector3.down * _groundCheckDistance));
+        Gizmos.DrawLine(transform.position, transform.position + (Vector3.down * ((GetComponent<BoxCollider>().bounds.size.y / 2) + _groundCheckDistance)));
 
         // if (_currentPathCorners != null)
         // {

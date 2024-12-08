@@ -10,20 +10,26 @@ public class Slime : MonoBehaviour
 
     [SerializeField] private float _timeBetweenPathRecalc = 0.2f;
 
-    [SerializeField] private float _groundCheckDistance = 3f;
+    [SerializeField] private float _groundCheckDistance = 0.05f;
 
     [SerializeField] private float _jumpStrength = 20f;
 
+    [Tooltip("Time to wait before jumping after landing")]
+    [SerializeField] private float _waitTimeBeforeJumping = 0.3f;
+
     [SerializeField] private float _gravityForce = 80f;
+
+    [SerializeField] private Transform _attackPoint;
+    [SerializeField] private float _attackAngle = 60f;
 
     private Rigidbody _rb;
     private BoxCollider _boxCollider;
     private NavMeshAgent _agent;
     private Vector3[] _currentPathCorners;
     private int _currentPathIndex;
-    private float _jumpTimer;
     private float _pathRecalculationTimer;
-
+    private float _jumpTimer;
+    private bool _isAttacking = false;
     private bool _groundedLastFrame = false;
 
     private NavMeshPath _path;
@@ -61,6 +67,21 @@ public class Slime : MonoBehaviour
         HandleBehaviour();
     }
 
+    /**
+        Attacking options:
+        1 OnCollision but also check collider is within angle of attack
+        2 SphereCast/Overlap in front of slime (but goes through walls)
+    */
+    private void OnCollisionEnter(Collision other)
+    {
+        if (!_isAttacking) return;
+
+        if (other.gameObject.GetComponent<Player_Controller>() != null && IsTargetWithinAttackAngle(other.transform.position))
+        {
+            Debug.Log("Slime hit player");
+        }
+    }
+
     private void HandleRotation()
     {
         // Quaternion targetRotation = Quaternion.LookRotation(_agent.desiredVelocity.normalized);
@@ -76,6 +97,7 @@ public class Slime : MonoBehaviour
     {
         if (IsGrounded())
         {
+            _isAttacking = false;
             _jumpTimer += Time.deltaTime;
             if (!_groundedLastFrame)
             {
@@ -93,12 +115,13 @@ public class Slime : MonoBehaviour
     {
         // Vector3 nextDirection = GetNextPathDirection();
 
-        if (_jumpTimer >= 0.3f && IsGrounded())
+        if (_jumpTimer >= _waitTimeBeforeJumping && IsGrounded())
         {
             // Vector3 nextDirection = (_agent.nextPosition - transform.position).normalized;
             Vector3 nextDirection = _agent.desiredVelocity.normalized;
             _rb.AddForce((nextDirection + Vector3.up) * _jumpStrength, ForceMode.Impulse);
             _jumpTimer = 0;
+            _isAttacking = true;
         }
     }
 
@@ -153,7 +176,7 @@ public class Slime : MonoBehaviour
         // _agent.SetDestination(_target.position);
 
         // OPTION 2 - calculated immediately
-        Vector3 targetPosition = new Vector3(_target.position.x, 0, _target.position.z);
+        Vector3 targetPosition = new(_target.position.x, 0, _target.position.z);
         _agent.CalculatePath(targetPosition, _path);
         if (_path != null) _agent.SetPath(_path);
 
@@ -171,18 +194,43 @@ public class Slime : MonoBehaviour
         return Physics.Raycast(transform.position, Vector3.down, (_boxCollider.bounds.size.y / 2) + _groundCheckDistance);
     }
 
+    private bool IsTargetWithinAttackAngle(Vector3 targetPosition)
+    {
+        Vector3 targetDirection = (targetPosition - _attackPoint.position).normalized;
+        targetDirection.y = 0f;
+
+        Vector3 attackForward = _attackPoint.forward;
+        attackForward.y = 0f;
+
+        float angle = Vector3.Angle(attackForward, targetDirection);
+        Debug.Log(angle);
+        return angle <= _attackAngle / 2;
+    }
+
+#if UNITY_EDITOR
+    #region Debug
+
+    [SerializeField] private bool _drawGroundCheck = false;
+    [SerializeField] private bool _drawAttackAngle = false;
+
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + (Vector3.down * ((GetComponent<BoxCollider>().bounds.size.y / 2) + _groundCheckDistance)));
+        if (_drawGroundCheck)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, transform.position + (Vector3.down * ((GetComponent<BoxCollider>().bounds.size.y / 2) + _groundCheckDistance)));
+        }
 
-        // if (_currentPathCorners != null)
-        // {
-        //     Gizmos.color = Color.red;
-        //     for (int i = _currentPathIndex; i < _currentPathCorners.Length; i++)
-        //     {
-        //         Gizmos.DrawSphere(_currentPathCorners[i], 0.1f);
-        //     }
-        // }
+        if (_drawAttackAngle)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(_attackPoint.position, _attackPoint.position + _attackPoint.forward * 2);
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(_attackPoint.position, _attackPoint.position + Quaternion.Euler(0, _attackAngle / 2, 0) * _attackPoint.forward * 2);
+            Gizmos.DrawLine(_attackPoint.position, _attackPoint.position + Quaternion.Euler(0, -_attackAngle / 2, 0) * _attackPoint.forward * 2);
+        }
     }
+
+    #endregion
+#endif
 }

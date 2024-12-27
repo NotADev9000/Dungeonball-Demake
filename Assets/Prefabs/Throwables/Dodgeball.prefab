@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 6671436913339692302}
   - component: {fileID: 7835069401842500932}
   - component: {fileID: 3418294554711310553}
+  - component: {fileID: 4622136664522209130}
+  - component: {fileID: 5368817892779708363}
+  - component: {fileID: 5417592899596868321}
   m_Layer: 3
   m_Name: Dodgeball
   m_TagString: Untagged
@@ -108,6 +111,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f054ebd53436b747b95a826bc3ae576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4622136664522209130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416326816937798445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb184aae859758d4eb85bd35dc05c13c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
+--- !u!114 &5368817892779708363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416326816937798445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fb3e9ce4f9a9924e9e3380eb3ab8556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5417592899596868321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416326816937798445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8635e7a6d1d8ba5469ddec0146e5018f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Team>k__BackingField: 1
 --- !u!1 &7970156154466576800
 GameObject:
   m_ObjectHideFlags: 0

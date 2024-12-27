@@ -25,6 +25,8 @@ public class Slime : MonoBehaviour
     private Rigidbody _rb;
     private BoxCollider _boxCollider;
     private NavMeshAgent _agent;
+    private ICollide _collideReactor;
+
     private Vector3[] _currentPathCorners;
     private int _currentPathIndex;
     private float _pathRecalculationTimer;
@@ -42,6 +44,7 @@ public class Slime : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _agent.updatePosition = false;
         _agent.updateRotation = false;
+        _collideReactor = GetComponent<ICollide>();
     }
 
     /**
@@ -60,30 +63,26 @@ public class Slime : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && _target != null) CalculatePathToTarget();
-
         UpdatePathRecalculation();
         HandleRotation();
         HandleBehaviour();
     }
 
-    /**
-        Attacking options:
-        1 OnCollision but also check collider is within angle of attack
-        2 SphereCast/Overlap in front of slime (but goes through walls)
-    */
     private void OnCollisionEnter(Collision other)
     {
         if (!_isAttacking) return;
 
-        if (other.gameObject.GetComponent<Player_Controller>() != null && IsTargetWithinAttackAngle(other.transform.position))
+        ICollide hittable = other.gameObject.GetComponent<ICollide>();
+        if (hittable != null && IsTargetWithinAttackAngle(other.transform.position))
         {
-            Debug.Log("Slime hit player");
+            hittable.GetHit(_collideReactor.Team);
         }
     }
 
     private void HandleRotation()
     {
+        if (_target == null) return;
+
         // Quaternion targetRotation = Quaternion.LookRotation(_agent.desiredVelocity.normalized);
         // targetRotation.eulerAngles = new Vector3(0, targetRotation.eulerAngles.y, 0);
         Vector3 nextPos = (_target.position - transform.position).normalized;
@@ -145,7 +144,7 @@ public class Slime : MonoBehaviour
         }
 
         Vector3 targetPosition = _currentPathCorners[_currentPathIndex];
-        Debug.Log(targetPosition);
+        // Debug.Log(targetPosition);
 
         if (Vector3.Distance(transform.position, targetPosition) <= _agent.stoppingDistance)
         {
@@ -172,6 +171,12 @@ public class Slime : MonoBehaviour
 
     private void CalculatePathToTarget()
     {
+        if (_target == null)
+        {
+            _agent.ResetPath();
+            return;
+        }
+
         // OPTION 1 - async
         // _agent.SetDestination(_target.position);
 
@@ -203,7 +208,6 @@ public class Slime : MonoBehaviour
         attackForward.y = 0f;
 
         float angle = Vector3.Angle(attackForward, targetDirection);
-        Debug.Log(angle);
         return angle <= _attackAngle / 2;
     }
 

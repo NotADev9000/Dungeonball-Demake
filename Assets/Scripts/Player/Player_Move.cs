@@ -11,6 +11,7 @@ public class Player_Move : MonoBehaviour
     [SerializeField] private float _moveSpeed = 8f;
 
     private Vector3 _moveDirection;
+    private Vector3 velocity = Vector3.zero;
 
     private void Awake()
     {
@@ -20,7 +21,10 @@ public class Player_Move : MonoBehaviour
     private void Update()
     {
         Vector3 moveDirection = (transform.right * _moveDirection.x) + (transform.forward * _moveDirection.z);
-        Vector3 velocity = moveDirection * _moveSpeed;
+        velocity += moveDirection * _moveSpeed;
+        // Debug.Log("velocity before decrease: " + velocity.magnitude);
+        velocity -= velocity * 0.2f; // TEST
+        // Debug.Log("velocity after decrease: " + velocity.magnitude);
         _controller.SimpleMove(velocity);
     }
 

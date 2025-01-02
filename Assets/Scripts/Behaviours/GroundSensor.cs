@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GroundSensor : MonoBehaviour
@@ -10,6 +11,8 @@ public class GroundSensor : MonoBehaviour
     private bool _wasGroundedLastFrame;
     public bool LandedThisFrame { get; private set; }
 
+    public event Action OnLandedThisFrame;
+
     private void Awake()
     {
         _boxCollider = GetComponent<BoxCollider>();
@@ -21,6 +24,7 @@ public class GroundSensor : MonoBehaviour
         {
             IsGrounded = true;
             LandedThisFrame = !_wasGroundedLastFrame;
+            if (LandedThisFrame) OnLandedThisFrame?.Invoke();
             _wasGroundedLastFrame = true;
         }
         else

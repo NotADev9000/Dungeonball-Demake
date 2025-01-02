@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(GroundSensor))]
@@ -13,6 +14,8 @@ public class MovementJump : MonoBehaviour
 
     private float _jumpTimer;
     private Vector3 _jumpDirection;
+
+    public event Action OnJump;
 
     void Awake()
     {
@@ -38,6 +41,7 @@ public class MovementJump : MonoBehaviour
     {
         if (_jumpTimer >= _waitTimeBeforeJumping && _groundSensor.IsGrounded)
         {
+            OnJump?.Invoke();
             _rb.AddForce((_jumpDirection + Vector3.up) * _jumpStrength, ForceMode.Impulse);
             _jumpTimer = 0f;
         }

@@ -1,39 +1,37 @@
 using System;
 using UnityEngine;
 
-public class HealthComponent : MonoBehaviour
+[Serializable]
+public class HealthComponent
 {
     [SerializeField] private int _maxHealth = 100;
     private int _currentHealth;
 
-    // Events
     public event Action OnDeath;
 
-    private void Awake()
+    private void ChangeCurrentHealth(int amount)
     {
-        _currentHealth = _maxHealth;
-    }
-
-    public void ChangeCurrentHealth(int damageAmount)
-    {
-        _currentHealth -= damageAmount;
+        _currentHealth += amount;
 
         if (_currentHealth <= 0)
         {
-            OnDeath?.Invoke();
             _currentHealth = 0;
+            OnDeath?.Invoke();
         }
 
         if (_currentHealth > _maxHealth)
-        {
             _currentHealth = _maxHealth;
-        }
 
         // Debug.Log(gameObject.name + " Health: " + _currentHealth);
     }
 
+    public void Damage(int damageAmount)
+    {
+        ChangeCurrentHealth(-damageAmount);
+    }
+
     public void Heal(int healAmount)
     {
-        ChangeCurrentHealth(-healAmount);
+        ChangeCurrentHealth(healAmount);
     }
 }

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public enum Team
 {
     Any,
@@ -7,7 +9,7 @@ public enum Team
 
 public interface ICollide
 {
-    void HitSomething();
+    void OnCollisionEnter(Collision other);
     void GetHit(Team hitterTeam);
     Team Team { get; set; }
 }

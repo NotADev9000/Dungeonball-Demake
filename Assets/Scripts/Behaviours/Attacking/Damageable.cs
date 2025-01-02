@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(HealthComponent))]
-public class Damageable : MonoBehaviour
+public class Damageable
 {
     private HealthComponent _healthComponent;
 
-    private void Awake()
+    public Damageable(HealthComponent healthComponent)
     {
-        _healthComponent = GetComponent<HealthComponent>();
+        _healthComponent = healthComponent;
     }
 
     public void Damage(int damageAmount)
     {
-        _healthComponent.ChangeCurrentHealth(damageAmount);
+        _healthComponent.Damage(damageAmount);
     }
 }

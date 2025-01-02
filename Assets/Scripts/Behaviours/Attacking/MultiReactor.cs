@@ -19,11 +19,11 @@ public class MultiReactor : CollideReactor
         _attackHandler.OnAttack(other.gameObject, Team);
     }
 
-    public override void GetHit(Team hitterTeam)
+    public override void GetHit(Team attackerTeam)
     {
         // put logic in hit handler
         // then have different hit handlers for different types of hits
-        if (IsOnDifferentTeam(hitterTeam))
+        if (IsOnDifferentTeam(attackerTeam))
         {
             // Debug.Log(gameObject.name + " got hit!");
             _damageable.Damage(10);

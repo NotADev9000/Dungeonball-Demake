@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class MultiReactor : CollideReactor
 {
+    [SerializeField] private VFXFlash _vfxFlash = null;
+    [SerializeField] private VFXFlashData_SO _vfxFlashData = null;
+
     private Damageable _damageable;
     private AttackHandler _attackHandler;
     // private SoundPlay _soundPlay;
-    // private fxPlayer _fxPlayer;
 
     public void Init(Damageable damageable, AttackHandler attackHandler)
     {
@@ -27,6 +29,10 @@ public class MultiReactor : CollideReactor
         {
             // Debug.Log(gameObject.name + " got hit!");
             _damageable.Damage(10);
+            if (_vfxFlash != null && _vfxFlashData != null)
+            {
+                _vfxFlash.Play(_vfxFlashData);
+            }
         }
     }
 }

@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: VFXFlash_Damage
-  m_EditorClassIdentifier: Assembly-CSharp::VFXFlashData_SO
-  _flashMaterial: {fileID: 2100000, guid: 7b1c93f1ae138154e80f55136edd9d32, type: 2}
-  _flashDuration: 0.15
+  m_Script: {fileID: 11500000, guid: 00db6b19422e4da42abe0024a1cd83d7, type: 3}
+  m_Name: Health_Slime
+  m_EditorClassIdentifier: 
+  <MaxHealth>k__BackingField: 20

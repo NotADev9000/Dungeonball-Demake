@@ -1,8 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VFXFlash : MonoBehaviour
+/// <summary>
+/// Start: Get all self & child renderers and store their materials.
+/// Methods: Change or reset stored materials.
+/// </summary>
+public class MaterialChanger : MonoBehaviour
 {
     private List<Renderer> _renderers = new();
     private List<Material[]> _startMaterials = new();
@@ -16,20 +19,7 @@ public class VFXFlash : MonoBehaviour
         }
     }
 
-    public void Play(VFXFlashData_SO data)
-    {
-        StartCoroutine(BeginFlash(data));
-    }
-
-    private IEnumerator BeginFlash(VFXFlashData_SO data)
-    {
-        ChangeMaterials(data.FlashMaterial);
-        yield return new WaitForSeconds(data.FlashDuration);
-        ResetMaterials();
-        // invoke callback here...
-    }
-
-    private void ChangeMaterials(Material material)
+    public void ChangeMaterials(Material material)
     {
         foreach (Renderer renderer in _renderers)
         {
@@ -37,7 +27,7 @@ public class VFXFlash : MonoBehaviour
         }
     }
 
-    private void ResetMaterials()
+    public void ResetMaterials()
     {
         for (int i = 0; i < _renderers.Count; i++)
         {

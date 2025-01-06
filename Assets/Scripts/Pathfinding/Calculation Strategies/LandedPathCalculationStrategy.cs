@@ -26,7 +26,7 @@ public class LandedPathCalculationStrategy : PathCalculationStrategy
         {
             Reset();
             _pathfinder.CalculatePathToTarget();
-            Debug.Log("Recalculating path");
+            // Debug.Log("Recalculating path");
         }
     }
 

@@ -9,18 +9,19 @@ public class AttackHandler
 
     public bool IsAttackActive { get; set; }
 
-    public AttackHandler(IValidateAttack attackValidator)
+    public AttackHandler(IValidateAttack validator = null, bool isAttackActive = false)
     {
-        _attackValidator = attackValidator;
+        _attackValidator = validator ?? new NullAttackValidator();
+        IsAttackActive = isAttackActive;
     }
 
-    public void OnAttack(GameObject target, Team attackerTeam)
+    public void OnAttack(GameObject target, Teams attackerTeam)
     {
         if (!IsAttackActive) return;
 
-        if (target.TryGetComponent(out ICollide hittable) && _attackValidator.IsAttackValid(target))
+        if (target.TryGetComponent(out IReactToAttacks attackReactor) && _attackValidator.IsAttackValid(target))
         {
-            hittable.GetHit(attackerTeam);
+            attackReactor.OnAttackReceived(attackerTeam);
         }
     }
 }

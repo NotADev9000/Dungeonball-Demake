@@ -4,10 +4,23 @@ using UnityEngine;
 [Serializable]
 public class HealthComponent
 {
-    [SerializeField] private int _maxHealth = 100;
+    private HealthData_SO _healthData;
+    private int MaxHealth => _healthData.MaxHealth;
+
     private int _currentHealth;
 
-    public event Action OnDeath;
+    public HealthComponent(HealthData_SO healthData)
+    {
+        _healthData = healthData;
+        Init();
+    }
+
+    private void Init()
+    {
+        _currentHealth = MaxHealth;
+    }
+
+    public bool IsDead => _currentHealth <= 0;
 
     private void ChangeCurrentHealth(int amount)
     {
@@ -16,13 +29,10 @@ public class HealthComponent
         if (_currentHealth <= 0)
         {
             _currentHealth = 0;
-            OnDeath?.Invoke();
         }
 
-        if (_currentHealth > _maxHealth)
-            _currentHealth = _maxHealth;
-
-        // Debug.Log(gameObject.name + " Health: " + _currentHealth);
+        if (_currentHealth > MaxHealth)
+            _currentHealth = MaxHealth;
     }
 
     public void Damage(int damageAmount)

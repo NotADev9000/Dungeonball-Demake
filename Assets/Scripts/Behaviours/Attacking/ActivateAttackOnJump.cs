@@ -1,13 +1,13 @@
 using System;
 using UnityEngine;
 
-public class AttackOnJump : IDisposable
+public class ActivateAttackOnJump : IDisposable
 {
     private AttackHandler _attackHandler;
     private MovementJump _movementJump;
     private GroundSensor _groundSensor;
 
-    public AttackOnJump(AttackHandler attackHandler, GameObject gameObject)
+    public ActivateAttackOnJump(AttackHandler attackHandler, GameObject gameObject)
     {
         _attackHandler = attackHandler;
         _movementJump = gameObject.GetComponent<MovementJump>();

@@ -3947,11 +3947,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5784497338028700490, guid: b8ee643ee11bd3d46bf70136e7034bd9,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6742657043466028461}
+      addedObject: {fileID: 6742657043466028452}
     - targetCorrespondingSourceObject: {fileID: 4398280858928571589, guid: b8ee643ee11bd3d46bf70136e7034bd9,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6742657043466028450}
+    - targetCorrespondingSourceObject: {fileID: 4398280858928571589, guid: b8ee643ee11bd3d46bf70136e7034bd9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6742657043466028453}
   m_SourcePrefab: {fileID: 100100000, guid: b8ee643ee11bd3d46bf70136e7034bd9, type: 3}
 --- !u!4 &6742657043466028446 stripped
 Transform:
@@ -3977,8 +3981,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af154d8f005d19d4f879e45c82c1f712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthComponent:
-    _maxHealth: 100
+  <Team>k__BackingField: 2
+  _healthData: {fileID: 11400000, guid: 08c1dd2f0f4d4d347bf78680753917a0, type: 2}
+  _flashOnDamage:
+    _materialFlasher: {fileID: 6742657043466028450}
+    _materialChanger: {fileID: 6742657043466028453}
+    _flashData: {fileID: 11400000, guid: 52e4efccadaaa8e4288edb2363b516bb, type: 2}
   _attackAngleValidator:
     _attackPoint: {fileID: 6742657043466028446}
     _attackAngle: 70
@@ -4000,7 +4008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc93556ae95f4c4a9497fc3daeb3e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6742657043466028461
+--- !u!114 &6742657043466028452
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4009,12 +4017,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 6742657043466028447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8635e7a6d1d8ba5469ddec0146e5018f, type: 3}
+  m_Script: {fileID: 11500000, guid: bd6eac131d8c81949bd6e06f4229833f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Team>k__BackingField: 2
-  _vfxFlash: {fileID: 6742657043466028450}
-  _vfxFlashData: {fileID: 11400000, guid: 52e4efccadaaa8e4288edb2363b516bb, type: 2}
+--- !u!114 &6742657043466028453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6742657043466028449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67fea6d295fc48c468fd374afed125a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

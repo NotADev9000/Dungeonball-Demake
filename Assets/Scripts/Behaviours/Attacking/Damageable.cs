@@ -5,25 +5,25 @@ public class Damageable
     private IHaveATeam _teamOwner;
     private DamageHandler _damageHandler;
     private HealthComponent _healthComponent;
+    private DeathHandler _deathHandler;
 
-    private List<IActions> _onDamageNoDeathActions;
-    private List<IActions> _onDeathActions;
-    private List<IActions> _onTeamDifferentActions;
+    private List<IAmActionable> _onDamageNoDeathActions;
+    private List<IAmActionable> _onTeamDifferentActions;
 
     public Damageable(
         IHaveATeam teamOwner,
         HealthData_SO healthData_SO,
-        List<IActions> onDamageNoDeathActions = null,
-        List<IActions> onDeathActions = null,
-        List<IActions> onTeamDifferentActions = null
+        List<IAmActionable> onDamageNoDeathActions = null,
+        List<IAmActionable> onTeamDifferentActions = null,
+        List<IAmActionable> onDeathActions = null
     )
     {
         _teamOwner = teamOwner;
         _healthComponent = new HealthComponent(healthData_SO);
         _damageHandler = new DamageHandler(_healthComponent);
-        _onDamageNoDeathActions = onDamageNoDeathActions ?? new List<IActions>();
-        _onDeathActions = onDeathActions ?? new List<IActions>();
-        _onTeamDifferentActions = onTeamDifferentActions ?? new List<IActions>();
+        _onDamageNoDeathActions = onDamageNoDeathActions ?? new List<IAmActionable>();
+        _onTeamDifferentActions = onTeamDifferentActions ?? new List<IAmActionable>();
+        _deathHandler = new DeathHandler(onDeathActions);
     }
 
     public void ProcessIncomingAttack(Teams attackerTeam)
@@ -40,7 +40,7 @@ public class Damageable
                 }
                 else
                 {
-                    // damage no death actions
+                    // damage but not dead  actions
                     OnDamageNoDeath();
                 }
             }
@@ -52,21 +52,21 @@ public class Damageable
         ExecuteActions(_onDamageNoDeathActions);
     }
 
-    private void OnDeath()
-    {
-        ExecuteActions(_onDeathActions);
-    }
-
     private void OnTeamDifference()
     {
         ExecuteActions(_onTeamDifferentActions);
     }
 
-    private void ExecuteActions(List<IActions> actions)
+    private void ExecuteActions(List<IAmActionable> actions)
     {
-        foreach (IActions action in actions)
+        foreach (IAmActionable action in actions)
         {
             action.Execute();
         }
+    }
+
+    private void OnDeath()
+    {
+        _deathHandler.OnDeath();
     }
 }

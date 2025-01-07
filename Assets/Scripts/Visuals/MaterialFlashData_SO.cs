@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "VFXFlashData", menuName = "ScriptableObjects/VFXFlashData")]
-public class VFXFlashData_SO : ScriptableObject
+public class MaterialFlashData_SO : ScriptableObject
 {
     [SerializeField] Material _flashMaterial = null;
     public Material FlashMaterial => _flashMaterial;

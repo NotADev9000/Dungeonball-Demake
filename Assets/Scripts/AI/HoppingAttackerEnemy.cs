@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AttackOnCollision))]
-public class HoppingAttackerEnemy : MonoBehaviour, IHaveATeam, IReactToAttacks//, IReactToDeath
+public class HoppingAttackerEnemy : MonoBehaviour, IHaveATeam, IReactToAttacks
 {
     [field: SerializeField] public Teams Team { get; set; }
 
@@ -13,9 +13,15 @@ public class HoppingAttackerEnemy : MonoBehaviour, IHaveATeam, IReactToAttacks//
     [SerializeField] private HealthData_SO _healthData;
     [Space(10)]
 
-    [Header("Visual Effects")]
+    [Header("Damage Effects")]
     [Space(5)]
     [SerializeField] private FlashMaterialsAction _flashOnDamage;
+    [Space(10)]
+
+    [Header("Death Effects")]
+    [Space(5)]
+    [SerializeField] private DestroyAction _destroyOnDeathDelay;
+    [SerializeField] private FlashMaterialsAction _flashOnDeath;
     [Space(10)]
 
     private AttackOnCollision _attackOnCollision;
@@ -27,8 +33,9 @@ public class HoppingAttackerEnemy : MonoBehaviour, IHaveATeam, IReactToAttacks//
 
     private void Awake()
     {
-        List<IActions> damageNoDeathActions = new() { _flashOnDamage };
-        _damageable = new Damageable(this, _healthData, damageNoDeathActions);
+        List<IAmActionable> damageNoDeathActions = new() { _flashOnDamage };
+        List<IAmActionable> deathActions = new() { _flashOnDeath, _destroyOnDeathDelay };
+        _damageable = new Damageable(this, _healthData, damageNoDeathActions, null, deathActions);
 
         _attackOnCollision = GetComponent<AttackOnCollision>();
 

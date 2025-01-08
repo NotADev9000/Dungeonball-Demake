@@ -4,7 +4,6 @@ public class ChaserAI : MonoBehaviour
 {
     [SerializeField] private Transform _target; // DEBUG
 
-
     // [SerializeField] private StatePatrol _patrolState;
     [SerializeField] private StateChase _chaseState;
 
@@ -13,6 +12,11 @@ public class ChaserAI : MonoBehaviour
     private void Awake()
     {
         _chaseState.InitState();
+    }
+
+    private void OnDisable()
+    {
+        _currentState.Exit();
     }
 
     private void Start()

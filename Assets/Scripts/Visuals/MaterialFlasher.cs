@@ -6,6 +6,7 @@ public class MaterialFlasher : MonoBehaviour
 {
     public void Play(MaterialFlashData_SO data, MaterialChanger materialChanger, Action action = null)
     {
+        StopAllCoroutines();
         StartCoroutine(BeginFlash(data, materialChanger, action));
     }
 

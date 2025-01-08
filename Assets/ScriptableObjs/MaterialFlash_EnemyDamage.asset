@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MaterialFlash_EnemyDamage
   m_EditorClassIdentifier: Assembly-CSharp::VFXFlashData_SO
   _flashMaterial: {fileID: 2100000, guid: 7b1c93f1ae138154e80f55136edd9d32, type: 2}
-  _flashDuration: 0.15
+  _flashDuration: 0.1

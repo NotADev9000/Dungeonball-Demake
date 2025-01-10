@@ -8,6 +8,7 @@ public class HealthComponent
     private int MaxHealth => _healthData.MaxHealth;
 
     private int _currentHealth;
+    public int CurrentHealth => _currentHealth;
 
     public HealthComponent(HealthData_SO healthData)
     {

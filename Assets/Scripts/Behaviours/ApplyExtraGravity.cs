@@ -17,6 +17,6 @@ public class ApplyExtraGravity : MonoBehaviour
     void FixedUpdate()
     {
         if (!_groundSensor.IsGrounded)
-            _rb.AddForce(Vector3.down * _gravityForce);
+            _rb.AddForce(Vector3.down * _gravityForce, ForceMode.Acceleration);
     }
 }

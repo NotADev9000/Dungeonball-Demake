@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIPlayerManager : MonoBehaviour
+public class UI_CrosshairScaler : MonoBehaviour
 {
     [Header("Player Reference")]
     [SerializeField] private Player_Controller _playerController;

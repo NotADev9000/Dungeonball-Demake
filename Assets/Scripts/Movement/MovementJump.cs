@@ -42,7 +42,7 @@ public class MovementJump : MonoBehaviour
         if (_jumpTimer >= _waitTimeBeforeJumping && _groundSensor.IsGrounded)
         {
             OnJump?.Invoke();
-            _rb.AddForce((_jumpDirection + Vector3.up) * _jumpStrength, ForceMode.Impulse);
+            _rb.AddForce((_jumpDirection + Vector3.up) * _jumpStrength, ForceMode.VelocityChange);
             _jumpTimer = 0f;
         }
     }

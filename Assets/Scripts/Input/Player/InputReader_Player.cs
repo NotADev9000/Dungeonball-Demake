@@ -67,8 +67,6 @@ public class InputReader_Player : ScriptableObject, IPlayerActions
     private void OnFire(InputAction.CallbackContext context, Action Event)
     {
         if (context.started)
-        {
             Event?.Invoke();
-        }
     }
 }

@@ -1,8 +1,8 @@
+using System;
 using System.Collections.Generic;
 
 public class Damageable
 {
-    private IHaveATeam _teamOwner;
     private DamageHandler _damageHandler;
     private HealthComponent _healthComponent;
     private DeathHandler _deathHandler;
@@ -10,18 +10,18 @@ public class Damageable
     private List<IAmActionable> _onDamageNoDeathActions;
     private List<IAmActionable> _onTeamDifferentActions;
 
+    public event Action OnDeath;
+
     // TODO: make this configurable if time allows
     private int _defaultDamage = 10;
 
     public Damageable(
-        IHaveATeam teamOwner,
         HealthData_SO healthData_SO,
         List<IAmActionable> onDamageNoDeathActions = null,
         List<IAmActionable> onTeamDifferentActions = null,
         List<IAmActionable> onDeathActions = null
     )
     {
-        _teamOwner = teamOwner;
         _healthComponent = new HealthComponent(healthData_SO);
         _damageHandler = new DamageHandler(_healthComponent);
         _onDamageNoDeathActions = onDamageNoDeathActions ?? new List<IAmActionable>();
@@ -29,18 +29,18 @@ public class Damageable
         _deathHandler = new DeathHandler(onDeathActions);
     }
 
-    public void ProcessIncomingAttack(Teams attackerTeam)
+    public void ProcessIncomingAttack(Teams myTeam, Teams attackerTeam)
     {
         if (_healthComponent.IsDead) return;
 
-        if (TeamUtils.IsOnDifferentTeam(_teamOwner.Team, attackerTeam))
+        if (TeamUtils.IsOnDifferentTeam(myTeam, attackerTeam))
         {
             OnTeamDifference();
             if (_damageHandler.TryDamage(_defaultDamage))
             {
                 if (_healthComponent.IsDead)
                 {
-                    OnDeath();
+                    ProcessDeath();
                 }
                 else
                 {
@@ -69,8 +69,9 @@ public class Damageable
         }
     }
 
-    private void OnDeath()
+    private void ProcessDeath()
     {
+        OnDeath?.Invoke();
         _deathHandler.OnDeath();
     }
 }

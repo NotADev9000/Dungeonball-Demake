@@ -7,16 +7,14 @@ public class TimeManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.OnGameOver += PauseTime;
-        GameManager.OnGameResumed += ResetTime;
-        GameManager.OnGamePaused += PauseTime;
+        UI_Menu.OnMenuOpened += PauseTime;
+        UI_Menu.OnMenuClosed += ResetTime;
     }
 
     private void OnDisable()
     {
-        GameManager.OnGameOver -= PauseTime;
-        GameManager.OnGameResumed -= ResetTime;
-        GameManager.OnGamePaused -= PauseTime;
+        UI_Menu.OnMenuOpened -= PauseTime;
+        UI_Menu.OnMenuClosed -= ResetTime;
     }
 
     private void PauseTime()

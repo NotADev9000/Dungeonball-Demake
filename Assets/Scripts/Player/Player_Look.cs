@@ -36,7 +36,7 @@ public class Player_Look : MonoBehaviour
     private void RotateCamera()
     {
         // if there is an input
-        if (_input.sqrMagnitude >= 0.001f)
+        if (_input.sqrMagnitude >= 0.001f && Time.timeScale > 0.0f)
         {
             bool IsCurrentDeviceMouse = true;
             //Don't multiply mouse input by Time.deltaTime

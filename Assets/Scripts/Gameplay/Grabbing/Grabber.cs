@@ -13,7 +13,6 @@ public class Grabber : MonoBehaviour
     private Grabbable _scannedGrabbable;
     public Grabbable ScannedGrabbable { get => _scannedGrabbable; }
 
-    // TODO: Clean this up when Debug statements are no longer needed
     public bool TryGrabGrabbable(Vector3 aimOrigin, Vector3 aimDirection, out Grabbable grabbable)
     {
         grabbable = null;

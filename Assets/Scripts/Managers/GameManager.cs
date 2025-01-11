@@ -77,7 +77,6 @@ public class GameManager : MonoBehaviour
 
     private void SetupPlayerReference()
     {
-        Debug.Log("Setting up player reference");
         _playerCombat = FindObjectOfType<Player_Combat>();
         _playerCombat.OnDeath += OnPlayerDeath;
     }

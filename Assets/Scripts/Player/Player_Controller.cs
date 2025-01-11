@@ -79,9 +79,9 @@ public class Player_Controller : MonoBehaviour
         // 2. TryGetAmmo from carrier OR get grabbable currently being grabbed
         //    - this means reference to grabbable being grabbed is needed before parenting to carry point
 
-        if (_ammoCarrier.TryGetAmmo(ammoCarryPoint, out Throwable throwable))
+        if (_ammoCarrier.TryGetAmmo(ammoCarryPoint, out IAmThrowable throwable))
         {
-            _thrower.Throw(throwable, GetAimOrigin(), GetAimDirection());
+            _thrower.Throw(throwable, ammoCarryPoint.transform, GetAimOrigin(), GetAimDirection());
         }
         else
         {

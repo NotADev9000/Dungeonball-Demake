@@ -82,9 +82,9 @@ public class UI_Transitioner : MonoBehaviour
         float time = 0f;
         while (time < _transitionTime)
         {
-            time += Time.deltaTime;
             yScale = Mathf.Lerp(1f, 0f, time / _transitionTime);
             _overlay.rectTransform.localScale = new Vector3(1f, yScale, 1f);
+            time += Time.deltaTime;
             yield return null;
         }
 

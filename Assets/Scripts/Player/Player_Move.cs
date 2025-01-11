@@ -22,7 +22,7 @@ public class Player_Move : MonoBehaviour
         Vector3 moveDirection = (transform.right * _moveDirection.x) + (transform.forward * _moveDirection.z);
         velocity += moveDirection * _moveSpeed;
         // Debug.Log("velocity before decrease: " + velocity.magnitude);
-        // Dampen velocity
+        // Dampen velocity (a weird acceleration method)
         velocity -= velocity * 0.2f; // TEST
         // Debug.Log("velocity after decrease: " + velocity.magnitude);
         _controller.SimpleMove(velocity);

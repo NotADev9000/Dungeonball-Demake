@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Thrower : MonoBehaviour
 {
-    [SerializeField] private float _throwForce = 10f;
-
     [SerializeField] private float _aimRaycastRange = 8f;
     public float AimRaycastRange { get => _aimRaycastRange; }
 
@@ -27,19 +25,9 @@ public class Thrower : MonoBehaviour
         return aimVector.normalized;
     }
 
-    public void Throw(Throwable objectToThrow, Vector3 aimOrigin, Vector3 aimDirection)
+    public void Throw(IAmThrowable throwable, Transform throwPoint, Vector3 aimOrigin, Vector3 aimDirection)
     {
-        Vector3 throwDirection = GetThrowDirection(objectToThrow.transform, aimOrigin, aimDirection);
-
-        // detach object from parent so it can be free (comment this line for weird results...)
-        objectToThrow.transform.parent = null;
-
-        Collider throwableCollider = objectToThrow.GetComponent<Collider>();
-        Rigidbody throwableRigidbody = objectToThrow.GetComponent<Rigidbody>();
-
-        throwableCollider.enabled = true;
-        throwableRigidbody.useGravity = true;
-        throwableRigidbody.isKinematic = false;
-        throwableRigidbody.AddForce(throwDirection * _throwForce, ForceMode.Impulse);
+        Vector3 throwDirection = GetThrowDirection(throwPoint, aimOrigin, aimDirection);
+        throwable.Throw(throwDirection);
     }
 }

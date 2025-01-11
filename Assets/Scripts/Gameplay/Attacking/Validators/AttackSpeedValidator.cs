@@ -5,8 +5,11 @@ using UnityEngine;
 [Serializable]
 public class AttackSpeedValidator : IValidateAttack
 {
+    [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private float _minSpeed = 1f;
+
     public bool IsAttackValid(GameObject target)
     {
-        return true;
+        return _rigidbody.velocity.magnitude >= _minSpeed;
     }
 }

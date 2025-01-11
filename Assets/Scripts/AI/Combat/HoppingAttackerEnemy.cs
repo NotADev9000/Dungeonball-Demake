@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AttackOnCollision))]
+[RequireComponent(typeof(AttackOnCollision)), RequireComponent(typeof(ChaserAI))]
 public class HoppingAttackerEnemy : MonoBehaviour, IHaveATeam, IReactToAttacks
 {
     [field: SerializeField] public Team Team { get; set; }
 
-    [SerializeField] private MonoBehaviour _aiStateMachine;
+    private ChaserAI _aiStateMachine;
     private Damageable _damageable;
 
     [Header("Health")]
@@ -28,7 +28,6 @@ public class HoppingAttackerEnemy : MonoBehaviour, IHaveATeam, IReactToAttacks
     [Space(10)]
 
     private AttackOnCollision _attackOnCollision;
-
     [Header("Attacking")]
     [Space(5)]
     [SerializeField] private AttackAngleValidator _attackAngleValidator;
@@ -36,17 +35,19 @@ public class HoppingAttackerEnemy : MonoBehaviour, IHaveATeam, IReactToAttacks
 
     private void Awake()
     {
-        List<IAmActionable> damageNoDeathActions = new() { _flashOnDamage };
+        _aiStateMachine = GetComponent<ChaserAI>();
+        _attackOnCollision = GetComponent<AttackOnCollision>();
 
-        // compound action run in sequence, flash object first, then run remaining actions
+        // DAMAGE
+        List<IAmActionable> damageNoDeathActions = new() { _flashOnDamage };
+        // compound action run in sequence e.g. flash object first, then run remaining actions
         CompoundAction actionsAfterDeathFlash = new(_flashOnDamage, new IAmActionable[] { _changeMatsOnDeath, _blinkOnDeath, _changeLayerOnDeath });
         List<IAmActionable> deathActions = new() { actionsAfterDeathFlash, _destroyOnDeathDelay, new DisableComponentsAction(_aiStateMachine) };
         _damageable = new Damageable(_healthData, damageNoDeathActions, null, deathActions);
 
-        _attackOnCollision = GetComponent<AttackOnCollision>();
+        // ATTACKING
         AttackHandler attackHandler = new(_attackAngleValidator);
         _attackOnCollision.Init(attackHandler);
-
         _activateAttackOnJump = new ActivateAttackOnJump(attackHandler, gameObject);
     }
 

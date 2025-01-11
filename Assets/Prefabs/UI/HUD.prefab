@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7895333235794141181}
   - component: {fileID: 5777010045626819605}
-  - component: {fileID: 7739574558394762178}
   - component: {fileID: 4533612828675338986}
   m_Layer: 0
   m_Name: HUD
@@ -48,19 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hudCanvas: {fileID: 9122365462742789404}
---- !u!114 &7739574558394762178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931351448757327991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31262de303a1faf42a45762ecc56efe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputReader: {fileID: 11400000, guid: 93be583bf64e0c845b4b4f209806d7a5, type: 2}
 --- !u!114 &4533612828675338986
 MonoBehaviour:
   m_ObjectHideFlags: 0

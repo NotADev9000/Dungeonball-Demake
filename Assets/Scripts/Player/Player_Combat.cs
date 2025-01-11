@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Player_Combat : MonoBehaviour, IHaveATeam, IReactToAttacks
 {
-    [field: SerializeField] public Teams Team { get; set; }
+    [field: SerializeField] public Team Team { get; set; }
 
     private Damageable _damageable;
 
@@ -40,7 +40,7 @@ public class Player_Combat : MonoBehaviour, IHaveATeam, IReactToAttacks
         Debug.Log("Player_Combat OnDestroy");
     }
 
-    public void OnAttackReceived(Teams attackerTeam)
+    public void OnAttackReceived(Team attackerTeam)
     {
         _damageable.ProcessIncomingAttack(Team, attackerTeam);
     }

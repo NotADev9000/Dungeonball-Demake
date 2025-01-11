@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -11,19 +13,48 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
-    // player ref
-    [SerializeField] private Player_Combat _playerCombat;
+    // SINGLETON SETUP ////////////////////////////
+    // Singleton Snippet From: https://discussions.unity.com/t/self-creating-singleton-from-a-prefab/590233/4
+    private static GameManager _instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (!_instance && !_isQuitting)
+            {
+                _instance = new GameObject().AddComponent<GameManager>();
+                // name it for easy recognition
+                _instance.name = _instance.GetType().ToString();
+                // mark root as DontDestroyOnLoad();
+                DontDestroyOnLoad(_instance.gameObject);
+            }
+            return _instance;
+        }
+    }
+    ////////////////////////////////////////////////
+
+    private Player_Combat _playerCombat;
 
     private GameState _gameState = GameState.Playing;
     public GameState GameState => _gameState;
 
-    public static event Action OnGameOver;
-    public static event Action OnGamePaused;
-    public static event Action OnGameResumed;
+    public event Action OnGameStarted;
+    public event Action OnGameOver;
+    public event Action OnGamePaused;
+    public event Action OnGameResumed;
 
-    private void OnEnable()
+    private static bool _isQuitting;
+
+    private void Awake()
     {
-        _playerCombat.OnDeath += OnPlayerDeath;
+        // Prevents instances of GameManager from being created when quitting the application
+        // (Not necessary for webgl but was annoying during testing)
+        Application.quitting += () => _isQuitting = true;
+    }
+
+    private void Start()
+    {
+        StartGame();
     }
 
     private void OnDisable()
@@ -31,9 +62,28 @@ public class GameManager : MonoBehaviour
         _playerCombat.OnDeath -= OnPlayerDeath;
     }
 
+    private void OnDestroy()
+    {
+        _instance = null;
+    }
+
+    private void StartGame()
+    {
+        SetupPlayerReference();
+        _gameState = GameState.Playing;
+        // UI_Transitioner.Instance.OnTransitionEnd -= StartGame;
+        OnGameStarted?.Invoke();
+    }
+
+    private void SetupPlayerReference()
+    {
+        Debug.Log("Setting up player reference");
+        _playerCombat = FindObjectOfType<Player_Combat>();
+        _playerCombat.OnDeath += OnPlayerDeath;
+    }
+
     private void OnPlayerDeath()
     {
-        Debug.Log("Player died");
         _gameState = GameState.GameOver;
         OnGameOver?.Invoke();
     }
@@ -59,5 +109,35 @@ public class GameManager : MonoBehaviour
     {
         _gameState = GameState.Playing;
         OnGameResumed?.Invoke();
+    }
+
+    public void RestartGame()
+    {
+        if (_gameState == GameState.Restarting) return;
+
+        _gameState = GameState.Restarting;
+        TransitionToScene();
+    }
+
+    private void TransitionToScene()
+    {
+        // Start transition (will transition in) and load scene when transition ends
+        UI_Transitioner.Instance.OnTransitionEnd += LoadScene;
+        UI_Transitioner.Instance.BeginTransition();
+    }
+
+    private void LoadScene()
+    {
+        UI_Transitioner.Instance.OnTransitionEnd -= LoadScene;
+        // Load scene (synchronous) and then start transition again (will transition out)
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        StartCoroutine(StartLevel());
+    }
+
+    private IEnumerator StartLevel()
+    {
+        yield return null;
+        UI_Transitioner.Instance.BeginTransition();
+        StartGame();
     }
 }

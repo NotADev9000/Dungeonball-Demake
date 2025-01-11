@@ -31,12 +31,12 @@ public class InputReader_UI : ScriptableObject, IUIActions
         }
     }
 
-    private void EnableInput()
+    public void EnableInput()
     {
         _uiInput.UI.Enable();
     }
 
-    private void DisableInput()
+    public void DisableInput()
     {
         _uiInput.UI.Disable();
     }

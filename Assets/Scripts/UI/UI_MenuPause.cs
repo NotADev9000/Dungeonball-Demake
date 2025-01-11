@@ -2,14 +2,14 @@ public class UI_MenuPause : UI_Menu
 {
     private void OnEnable()
     {
-        GameManager.OnGamePaused += OnPause;
-        GameManager.OnGameResumed += OnResume;
+        GameManager.Instance.OnGamePaused += OnPause;
+        GameManager.Instance.OnGameResumed += OnResume;
     }
 
     private void OnDisable()
     {
-        GameManager.OnGamePaused -= OnPause;
-        GameManager.OnGameResumed += OnResume;
+        GameManager.Instance.OnGamePaused -= OnPause;
+        GameManager.Instance.OnGameResumed -= OnResume;
     }
 
     private void OnPause()
@@ -20,5 +20,15 @@ public class UI_MenuPause : UI_Menu
     private void OnResume()
     {
         SetMenuState(false);
+    }
+
+    public void OnResumeButton()
+    {
+        GameManager.Instance.TogglePause();
+    }
+
+    public void OnRestartButton()
+    {
+        GameManager.Instance.RestartGame();
     }
 }

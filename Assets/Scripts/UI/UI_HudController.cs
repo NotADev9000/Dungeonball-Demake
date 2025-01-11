@@ -1,17 +1,9 @@
 using UnityEngine;
 
-[RequireComponent(typeof(GameManager))]
-public class UI_Controller : MonoBehaviour
+public class UI_HudController : MonoBehaviour
 {
     [Header("Input")]
     [SerializeField] private InputReader_UI _inputReader;
-
-    private GameManager _gameManager;
-
-    private void Awake()
-    {
-        _gameManager = GetComponent<GameManager>();
-    }
 
     private void OnEnable()
     {
@@ -25,6 +17,6 @@ public class UI_Controller : MonoBehaviour
 
     private void OnPauseInput()
     {
-        _gameManager.TogglePause();
+        GameManager.Instance.TogglePause();
     }
 }

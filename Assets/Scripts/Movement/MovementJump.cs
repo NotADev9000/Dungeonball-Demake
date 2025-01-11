@@ -25,7 +25,7 @@ public class MovementJump : MonoBehaviour
 
     private void OnEnable()
     {
-        _jumpTimer = _waitTimeBeforeJumping;
+        _jumpTimer = 0f;
         _jumpDirection = Vector3.zero;
     }
 

@@ -18,11 +18,15 @@ public class InputReader_Player : ScriptableObject, IPlayerActions
     {
         SetupInput();
         EnableInput();
+        TimeManager.OnTimePaused += DisableInput;
+        TimeManager.OnTimeResumed += EnableInput;
     }
 
     private void OnDisable()
     {
         DisableInput();
+        TimeManager.OnTimePaused -= DisableInput;
+        TimeManager.OnTimeResumed -= EnableInput;
     }
 
     private void SetupInput()
@@ -34,12 +38,12 @@ public class InputReader_Player : ScriptableObject, IPlayerActions
         }
     }
 
-    private void EnableInput()
+    public void EnableInput()
     {
         _playerInput.Player.Enable();
     }
 
-    private void DisableInput()
+    public void DisableInput()
     {
         _playerInput.Player.Disable();
     }

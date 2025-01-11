@@ -20,6 +20,7 @@ public class Player_Combat : MonoBehaviour, IHaveATeam, IReactToAttacks
 
     private void Awake()
     {
+        Debug.Log("Player_Combat Awake");
         // List<IAmActionable> deathActions = new() { };
         _damageable = new Damageable(_healthData, null, null, null);
     }
@@ -32,6 +33,11 @@ public class Player_Combat : MonoBehaviour, IHaveATeam, IReactToAttacks
     private void OnDisable()
     {
         _damageable.OnDeath -= () => HandlePlayerDeath();
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("Player_Combat OnDestroy");
     }
 
     public void OnAttackReceived(Teams attackerTeam)

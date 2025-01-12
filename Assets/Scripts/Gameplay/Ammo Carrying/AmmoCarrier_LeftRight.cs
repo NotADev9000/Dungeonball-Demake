@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class AmmoCarrier_LeftRight : MonoBehaviour
@@ -6,6 +7,8 @@ public class AmmoCarrier_LeftRight : MonoBehaviour
     public AmmoCarryPoint LeftHold { get => _leftHold; }
     [SerializeField] private AmmoCarryPoint _rightHold;
     public AmmoCarryPoint RightHold { get => _rightHold; }
+
+    public event Action OnPickup;
 
     public bool TryGetAmmo(AmmoCarryPoint carrier, out IAmThrowable throwable)
     {
@@ -23,6 +26,7 @@ public class AmmoCarrier_LeftRight : MonoBehaviour
         }
 
         grabbable.transform.parent = carrier.transform;
+        OnPickup?.Invoke();
         grabbable.OnPickup();
     }
 }

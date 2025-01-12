@@ -5,11 +5,6 @@ public class PlaySoundOnJump : PlaySoundCooldown
 {
     [SerializeField] private MovementJump _movementJump;
 
-    private void Awake()
-    {
-        _audioSource = GetComponent<AudioSource>();
-    }
-
     private void OnEnable()
     {
         _movementJump.OnJump += PlaySound;

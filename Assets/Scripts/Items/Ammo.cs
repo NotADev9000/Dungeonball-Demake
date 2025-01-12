@@ -16,6 +16,7 @@ public class Ammo : MonoBehaviour, IHaveATeam, IAmThrowable
     [SerializeField] private FlashMaterialsAction _flashOnCollision;
     [SerializeField] private SpeedScaleEaseAction _scaleOnCollision;
     [SerializeField] private InstantiateParticleAction _instantiateParticleOnCollision;
+    [SerializeField] private PlaySoundAction _playSoundOnCollision;
 
     private Launcher _launcher;
 
@@ -25,7 +26,7 @@ public class Ammo : MonoBehaviour, IHaveATeam, IAmThrowable
         _launcher = GetComponent<Launcher>();
 
         // ATTACKING
-        List<IAmActionable> collidedActions = new() { _flashOnCollision, _scaleOnCollision, _instantiateParticleOnCollision };
+        List<IAmActionable> collidedActions = new() { _flashOnCollision, _scaleOnCollision, _instantiateParticleOnCollision, _playSoundOnCollision };
         List<IAmCollisionAction> collidedCollisionActions = new() { _instantiateParticleOnCollision };
         AttackHandler attackHandler = new(_attackSpeedValidator, true);
         _attackOnCollision.Init(attackHandler, collidedActions, collidedCollisionActions);

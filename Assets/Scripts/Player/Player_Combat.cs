@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_Combat : MonoBehaviour, IHaveATeam, IReactToAttacks
@@ -11,18 +12,25 @@ public class Player_Combat : MonoBehaviour, IHaveATeam, IReactToAttacks
     [Header("Health")]
     [Space(5)]
     [SerializeField] private HealthData_SO _healthData;
-    // [Space(10)]
+    [Space(10)]
 
-    // [Header("Death Effects")]
-    // [Space(5)]
+    [Header("Damage Effects")]
+    [Space(5)]
+    [SerializeField] private PlaySoundAction _damageSoundAction;
+    [Space(10)]
+
+    [Header("Death Effects")]
+    [Space(5)]
+    [SerializeField] private PlaySoundAction _deathSoundAction;
 
     public event Action OnDeath;
     private Action HandlePlayerDeath => () => OnDeath?.Invoke();
 
     private void Awake()
     {
-        // List<IAmActionable> deathActions = new() { };
-        _damageable = new Damageable(_healthData, null, null, null);
+        List<IAmActionable> damageNoDeathActions = new() { _damageSoundAction };
+        List<IAmActionable> deathActions = new() { _deathSoundAction };
+        _damageable = new Damageable(_healthData, damageNoDeathActions, null, deathActions);
     }
 
     private void Start()

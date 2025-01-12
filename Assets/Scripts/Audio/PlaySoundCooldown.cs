@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class PlaySoundCooldown : MonoBehaviour
 {
-    [SerializeField] private AudioClip _sound;
+    [SerializeField] private AudioClip[] _sound;
     [SerializeField] private float _cooldown = 0.1f;
     [SerializeField] private float _pitchMin = 1f;
     [SerializeField] private float _pitchMax = 1f;

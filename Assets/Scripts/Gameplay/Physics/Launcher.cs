@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,8 +10,9 @@ public class Launcher : MonoBehaviour
     private Rigidbody _rigidbody;
     private Collider _collider;
 
-
     private Collider _initiatingCollider;
+
+    public event Action OnLaunched;
 
     private void Awake()
     {
@@ -19,6 +21,7 @@ public class Launcher : MonoBehaviour
     }
 
     // ignores collision with the collider that initiated the launch until the object collides with something else
+    // e.g. player throws ball. Ball ignores player's collider until it hits the wall.
     private void OnCollisionExit(Collision other)
     {
         if (_initiatingCollider != null)
@@ -39,8 +42,9 @@ public class Launcher : MonoBehaviour
         _collider.enabled = true;
         _rigidbody.useGravity = true;
         _rigidbody.isKinematic = false;
-        // Debug.Break();
         _rigidbody.AddForce(direction * _throwForce, ForceMode.Impulse);
+
+        OnLaunched?.Invoke();
     }
 
     private void IgnoreInitiatingCollider(Collider initiatingCollider)

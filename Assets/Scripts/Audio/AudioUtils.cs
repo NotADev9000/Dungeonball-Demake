@@ -8,4 +8,9 @@ public static class AudioUtils
         if (sound != null) source.PlayOneShot(sound);
         else source.Play();
     }
+
+    public static void PlaySound(AudioSource source, AudioClip[] sounds, float pitchMin = 1f, float pitchMax = 1f)
+    {
+        PlaySound(source, sounds[Random.Range(0, sounds.Length)], pitchMin, pitchMax);
+    }
 }

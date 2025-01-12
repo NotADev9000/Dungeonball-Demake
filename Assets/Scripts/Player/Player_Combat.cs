@@ -34,8 +34,8 @@ public class Player_Combat : MonoBehaviour, IHaveATeam, IReactToAttacks
         _damageable.OnDeath -= () => HandlePlayerDeath();
     }
 
-    public void OnAttackReceived(Team attackerTeam)
+    public void OnAttackReceived(Team attackerTeam, int damage)
     {
-        _damageable.ProcessIncomingAttack(Team, attackerTeam);
+        _damageable.ProcessIncomingAttack(Team, attackerTeam, damage);
     }
 }

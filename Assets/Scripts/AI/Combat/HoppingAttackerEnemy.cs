@@ -56,8 +56,8 @@ public class HoppingAttackerEnemy : MonoBehaviour, IHaveATeam, IReactToAttacks
         _activateAttackOnJump.Dispose();
     }
 
-    public void OnAttackReceived(Team attackerTeam)
+    public void OnAttackReceived(Team attackerTeam, int damage)
     {
-        _damageable.ProcessIncomingAttack(Team, attackerTeam);
+        _damageable.ProcessIncomingAttack(Team, attackerTeam, damage);
     }
 }

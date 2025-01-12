@@ -12,9 +12,6 @@ public class Damageable
 
     public event Action OnDeath;
 
-    // TODO: make this configurable if time allows
-    private int _defaultDamage = 10;
-
     public Damageable(
         HealthData_SO healthData_SO,
         List<IAmActionable> onDamageNoDeathActions = null,
@@ -29,14 +26,14 @@ public class Damageable
         _deathHandler = new DeathHandler(onDeathActions);
     }
 
-    public void ProcessIncomingAttack(Team myTeam, Team attackerTeam)
+    public void ProcessIncomingAttack(Team myTeam, Team attackerTeam, int damage)
     {
         if (_healthComponent.IsDead) return;
 
         if (TeamUtils.IsOnDifferentTeam(myTeam, attackerTeam))
         {
             OnTeamDifference();
-            if (_damageHandler.TryDamage(_defaultDamage))
+            if (_damageHandler.TryDamage(damage))
             {
                 if (_healthComponent.IsDead)
                 {

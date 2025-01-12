@@ -3,6 +3,8 @@ using UnityEngine;
 public class Thrower : MonoBehaviour
 {
     [SerializeField] private float _aimRaycastRange = 8f;
+    [SerializeField] private Collider _collider;
+
     public float AimRaycastRange { get => _aimRaycastRange; }
 
     /// <summary>
@@ -28,6 +30,6 @@ public class Thrower : MonoBehaviour
     public void Throw(IAmThrowable throwable, Transform throwPoint, Vector3 aimOrigin, Vector3 aimDirection)
     {
         Vector3 throwDirection = GetThrowDirection(throwPoint, aimOrigin, aimDirection);
-        throwable.Throw(throwDirection);
+        throwable.Throw(throwDirection, _collider);
     }
 }

@@ -4,5 +4,5 @@
 /// </summary>
 public interface IReactToAttacks
 {
-    void OnAttackReceived(Team attackerTeam);
+    void OnAttackReceived(Team attackerTeam, int damage);
 }

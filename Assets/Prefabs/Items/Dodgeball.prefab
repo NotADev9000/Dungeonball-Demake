@@ -102,17 +102,20 @@ MonoBehaviour:
   _attackSpeedValidator:
     _rigidbody: {fileID: 6671436913339692302}
     _minSpeed: 5
-  _flashOnAttackAttempt:
+  _flashOnCollision:
     _materialFlasher: {fileID: 667306766507593425}
     _materialChanger: {fileID: 2520449236961681501}
     _flashData: {fileID: 11400000, guid: 5f9b10725e35cb147a2322c535d58f8c, type: 2}
-  _scaleOnAttackAttempt:
+  _scaleOnCollision:
     _scaleEaser: {fileID: 9135272268198156729}
     _scaleSpeed: 2.5
     _rigidbody: {fileID: 6671436913339692302}
     _minSpeedThreshold: 0
     _maxSpeedThreshold: 40
     _maxScale: {x: 1.8, y: 1.8, z: 1.8}
+  _instantiateParticleOnCollision:
+    _particlePrefab: {fileID: 7623860413698829126, guid: f7728604d18e1d6448e15fc269c6aded,
+      type: 3}
 --- !u!114 &4499017101054372194
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -37,7 +37,8 @@ public class GroundSensor : MonoBehaviour
 
     private bool CheckGrounded()
     {
-        return Physics.Raycast(transform.position, Vector3.down, (_boxCollider.bounds.size.y / 2) + _groundCheckDistance);
+        return Physics.BoxCast(transform.position, _boxCollider.bounds.size / 2, Vector3.down, Quaternion.identity, _groundCheckDistance);
+        // return Physics.Raycast(transform.position, Vector3.down, (_boxCollider.bounds.size.y / 2) + _groundCheckDistance);
     }
 
 #if UNITY_EDITOR
@@ -49,10 +50,12 @@ public class GroundSensor : MonoBehaviour
     {
         if (_drawGroundCheck)
         {
+            Collider col = GetComponent<BoxCollider>();
             Gizmos.color = Color.red;
-            Vector3 from = transform.position + (Vector3.down * (GetComponent<BoxCollider>().bounds.size.y / 2));
-            Vector3 to = from + (Vector3.down * _groundCheckDistance);
-            Gizmos.DrawLine(from, to);
+            Vector3 from = col.bounds.center + (Vector3.down * (((col.bounds.size.y) / 2) + (_groundCheckDistance / 2)));
+            // Vector3 to = from + (Vector3.down * _groundCheckDistance);
+            Vector3 to = new(col.bounds.size.x, _groundCheckDistance, col.bounds.size.z);
+            Gizmos.DrawCube(from, to);
         }
     }
 

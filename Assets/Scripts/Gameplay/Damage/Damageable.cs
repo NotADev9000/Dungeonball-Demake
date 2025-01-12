@@ -5,6 +5,7 @@ public class Damageable
 {
     private DamageHandler _damageHandler;
     private Health _healthComponent;
+    public Health HealthComponent => _healthComponent;
     private DeathHandler _deathHandler;
 
     private List<IAmActionable> _onDamageNoDeathActions;
@@ -24,6 +25,11 @@ public class Damageable
         _onDamageNoDeathActions = onDamageNoDeathActions ?? new List<IAmActionable>();
         _onTeamDifferentActions = onTeamDifferentActions ?? new List<IAmActionable>();
         _deathHandler = new DeathHandler(onDeathActions);
+    }
+
+    public void Init()
+    {
+        _healthComponent.Init();
     }
 
     public void ProcessIncomingAttack(Team myTeam, Team attackerTeam, int damage)

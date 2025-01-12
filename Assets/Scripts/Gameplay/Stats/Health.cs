@@ -9,10 +9,17 @@ public class Health
     private int _currentHealth;
     public int CurrentHealth => _currentHealth;
 
+    public event Action<int, int> OnHealthChanged;
+
     public Health(HealthData_SO healthData)
     {
         _healthData = healthData;
+    }
+
+    public void Init()
+    {
         _currentHealth = MaxHealth;
+        OnHealthChanged?.Invoke(_currentHealth, MaxHealth);
     }
 
     public bool IsDead => _currentHealth <= 0;
@@ -28,6 +35,8 @@ public class Health
 
         if (_currentHealth > MaxHealth)
             _currentHealth = MaxHealth;
+
+        OnHealthChanged?.Invoke(_currentHealth, MaxHealth);
     }
 
     public void Damage(int damageAmount)

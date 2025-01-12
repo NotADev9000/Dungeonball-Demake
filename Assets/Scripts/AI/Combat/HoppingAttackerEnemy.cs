@@ -51,6 +51,11 @@ public class HoppingAttackerEnemy : MonoBehaviour, IHaveATeam, IReactToAttacks
         _activateAttackOnJump = new ActivateAttackOnJump(attackHandler, gameObject);
     }
 
+    private void Start()
+    {
+        _damageable.Init();
+    }
+
     private void OnDisable()
     {
         _activateAttackOnJump.Dispose();

@@ -6,6 +6,7 @@ public class Player_Combat : MonoBehaviour, IHaveATeam, IReactToAttacks
     [field: SerializeField] public Team Team { get; set; }
 
     private Damageable _damageable;
+    public Health HealthComponent => _damageable.HealthComponent;
 
     [Header("Health")]
     [Space(5)]
@@ -22,6 +23,11 @@ public class Player_Combat : MonoBehaviour, IHaveATeam, IReactToAttacks
     {
         // List<IAmActionable> deathActions = new() { };
         _damageable = new Damageable(_healthData, null, null, null);
+    }
+
+    private void Start()
+    {
+        _damageable.Init();
     }
 
     private void OnEnable()

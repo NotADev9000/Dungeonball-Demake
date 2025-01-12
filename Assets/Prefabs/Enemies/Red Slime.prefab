@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1911044884932843532}
   - component: {fileID: 7827102140043650825}
   m_Layer: 0
-  m_Name: Eye_R_1
+  m_Name: Eye_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6022,7 +6022,7 @@ GameObject:
   - component: {fileID: 5416953668408878398}
   - component: {fileID: 6059372158842454828}
   m_Layer: 0
-  m_Name: Eye_L_1
+  m_Name: Eye_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12143,15 +12143,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: e45b12999839d6544892c98d601d2960, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3054911258240324992, guid: b8ee643ee11bd3d46bf70136e7034bd9, type: 3}
+    - {fileID: 1494992998036338219, guid: b8ee643ee11bd3d46bf70136e7034bd9, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1576180425165650214, guid: b8ee643ee11bd3d46bf70136e7034bd9,
         type: 3}
-      insertIndex: 1
+      insertIndex: -1
       addedObject: {fileID: 1791537646123217371}
     - targetCorrespondingSourceObject: {fileID: 1576180425165650214, guid: b8ee643ee11bd3d46bf70136e7034bd9,
         type: 3}
-      insertIndex: 3
+      insertIndex: -1
       addedObject: {fileID: 970872128023818876}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8ee643ee11bd3d46bf70136e7034bd9, type: 3}

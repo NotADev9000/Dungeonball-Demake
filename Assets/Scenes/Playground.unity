@@ -2352,7 +2352,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1841369039}
     - target: {fileID: 2097475739816254786, guid: 5c89cdba01fb883498c5122c9d8cff3f,
         type: 3}
       propertyPath: m_Mesh
@@ -2446,7 +2446,7 @@ PrefabInstance:
     - target: {fileID: 6059372158842454828, guid: 5c89cdba01fb883498c5122c9d8cff3f,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 253
+      value: 262
       objectReference: {fileID: 0}
     - target: {fileID: 6094663932983674027, guid: 5c89cdba01fb883498c5122c9d8cff3f,
         type: 3}
@@ -2466,7 +2466,7 @@ PrefabInstance:
     - target: {fileID: 7827102140043650825, guid: 5c89cdba01fb883498c5122c9d8cff3f,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 65
+      value: 74
       objectReference: {fileID: 0}
     - target: {fileID: 9034208069818979010, guid: 5c89cdba01fb883498c5122c9d8cff3f,
         type: 3}
@@ -4125,6 +4125,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4947255095744417202}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1841369040 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1274913741884055049, guid: cf9961d2c4ee19d44a18cca772121a87,
+    type: 3}
+  m_PrefabInstance: {fileID: 4947255095744417202}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98873db6ab07034c83233e5a7f511b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1856500370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5410,6 +5422,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9101170475013507009, guid: 480f91e1cfa0b194eb23d2861d9e3961,
+        type: 3}
+      propertyPath: _playerCombat
+      value: 
+      objectReference: {fileID: 1841369040}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5427,7 +5444,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1841369039}
     - target: {fileID: 2695571914456189314, guid: b8ee643ee11bd3d46bf70136e7034bd9,
         type: 3}
       propertyPath: m_LocalPosition.x

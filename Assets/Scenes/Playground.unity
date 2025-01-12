@@ -1567,7 +1567,7 @@ PrefabInstance:
     - target: {fileID: 5784497338028700490, guid: b8ee643ee11bd3d46bf70136e7034bd9,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2438,6 +2438,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Slime
       objectReference: {fileID: 0}
+    - target: {fileID: 5327832102828181112, guid: 5c89cdba01fb883498c5122c9d8cff3f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6059372158842454828, guid: 5c89cdba01fb883498c5122c9d8cff3f,
         type: 3}
       propertyPath: m_Mesh
@@ -2446,7 +2451,7 @@ PrefabInstance:
     - target: {fileID: 6059372158842454828, guid: 5c89cdba01fb883498c5122c9d8cff3f,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 262
+      value: 391
       objectReference: {fileID: 0}
     - target: {fileID: 6094663932983674027, guid: 5c89cdba01fb883498c5122c9d8cff3f,
         type: 3}
@@ -2466,7 +2471,7 @@ PrefabInstance:
     - target: {fileID: 7827102140043650825, guid: 5c89cdba01fb883498c5122c9d8cff3f,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 74
+      value: 203
       objectReference: {fileID: 0}
     - target: {fileID: 9034208069818979010, guid: 5c89cdba01fb883498c5122c9d8cff3f,
         type: 3}
@@ -3269,7 +3274,7 @@ PrefabInstance:
     - target: {fileID: 5784497338028700490, guid: b8ee643ee11bd3d46bf70136e7034bd9,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4485,7 +4490,7 @@ PrefabInstance:
     - target: {fileID: 5784497338028700490, guid: b8ee643ee11bd3d46bf70136e7034bd9,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5199,7 +5204,7 @@ PrefabInstance:
     - target: {fileID: 1360110303432057134, guid: cf9961d2c4ee19d44a18cca772121a87,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.84
+      value: -12.4
       objectReference: {fileID: 0}
     - target: {fileID: 1360110303432057134, guid: cf9961d2c4ee19d44a18cca772121a87,
         type: 3}
@@ -5458,7 +5463,7 @@ PrefabInstance:
     - target: {fileID: 2695571914456189314, guid: b8ee643ee11bd3d46bf70136e7034bd9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: 9.93
       objectReference: {fileID: 0}
     - target: {fileID: 2695571914456189314, guid: b8ee643ee11bd3d46bf70136e7034bd9,
         type: 3}

@@ -8,7 +8,8 @@ public enum GameState
     Playing,
     Paused,
     Restarting,
-    GameOver
+    GameOver,
+    Title
 }
 
 public class GameManager : MonoBehaviour
@@ -42,9 +43,13 @@ public class GameManager : MonoBehaviour
     public event Action OnGameOver;
     public event Action OnGamePaused;
     public event Action OnGameResumed;
+    public event Action OnGameRestarted;
     public event Action OnGameWon;
 
+    public event Action OnFirstTimeInGame;
+
     private static bool _isQuitting;
+    private static bool _isFirstTimeInGame = true;
 
     private void Awake()
     {
@@ -56,6 +61,14 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         StartGame();
+
+        // setting up title screen (only showed on first time in game)
+        if (_isFirstTimeInGame)
+        {
+            _isFirstTimeInGame = false;
+            _gameState = GameState.Title;
+            OnFirstTimeInGame?.Invoke();
+        }
     }
 
     private void OnDisable()
@@ -72,7 +85,6 @@ public class GameManager : MonoBehaviour
     {
         SetupPlayerReference();
         _gameState = GameState.Playing;
-        // UI_Transitioner.Instance.OnTransitionEnd -= StartGame;
         OnGameStarted?.Invoke();
     }
 
@@ -90,12 +102,12 @@ public class GameManager : MonoBehaviour
 
     public void TogglePause()
     {
-        if (_gameState == GameState.GameOver || _gameState == GameState.Restarting)
-            return;
+        // if (_gameState == GameState.GameOver || _gameState == GameState.Restarting)
+        //     return;
 
         if (_gameState == GameState.Playing)
             PauseGame();
-        else
+        else if (_gameState == GameState.Paused)
             ResumeGame();
     }
 
@@ -105,7 +117,7 @@ public class GameManager : MonoBehaviour
         OnGamePaused?.Invoke();
     }
 
-    private void ResumeGame()
+    public void ResumeGame()
     {
         _gameState = GameState.Playing;
         OnGameResumed?.Invoke();
@@ -144,6 +156,7 @@ public class GameManager : MonoBehaviour
     {
         yield return null;
         UI_Transitioner.Instance.BeginTransition();
+        OnGameRestarted?.Invoke();
         StartGame();
     }
 }

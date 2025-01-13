@@ -4,6 +4,7 @@ public class CursorManager : MonoBehaviour
 {
     private void OnEnable()
     {
+        GameManager.Instance.OnGameRestarted += LockCursor;
         UI_Menu.OnMenuOpened += OnMenuOpened;
         UI_Menu.OnMenuClosed += OnMenuClosed;
     }
@@ -12,6 +13,11 @@ public class CursorManager : MonoBehaviour
     {
         UI_Menu.OnMenuOpened -= OnMenuOpened;
         UI_Menu.OnMenuClosed -= OnMenuClosed;
+
+        if (GameManager.Instance == null)
+            return;
+
+        GameManager.Instance.OnGameRestarted -= LockCursor;
     }
 
     private void OnMenuOpened()
@@ -21,6 +27,11 @@ public class CursorManager : MonoBehaviour
     }
 
     private void OnMenuClosed()
+    {
+        LockCursor();
+    }
+
+    private void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

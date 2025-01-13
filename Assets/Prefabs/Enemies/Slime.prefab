@@ -781,9 +781,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
+  _scanState:
+    _targetRange: 30
   _chaseState:
     _input: {fileID: 1978662107271916169}
     _pathCalculationStrategy: {fileID: 6992068233478175410}
+  _drawScanCheck: 1
 --- !u!114 &1978662107271916169
 MonoBehaviour:
   m_ObjectHideFlags: 0

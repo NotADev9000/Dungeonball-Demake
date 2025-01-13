@@ -8,7 +8,7 @@ public class StateChase : StateBase
     [SerializeField] private PathCalculationStrategy _pathCalculationStrategy;
 
     private Pathfinder _pathfinder;
-    public Transform Target { get; set; }
+    // public Transform Target { get; set; }
 
     public override void InitState()
     {

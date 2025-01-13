@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     public event Action OnGameOver;
     public event Action OnGamePaused;
     public event Action OnGameResumed;
+    public event Action OnGameWon;
 
     private static bool _isQuitting;
 
@@ -116,6 +117,12 @@ public class GameManager : MonoBehaviour
 
         _gameState = GameState.Restarting;
         TransitionToScene();
+    }
+
+    public void WinGame()
+    {
+        _gameState = GameState.GameOver;
+        OnGameWon?.Invoke();
     }
 
     private void TransitionToScene()

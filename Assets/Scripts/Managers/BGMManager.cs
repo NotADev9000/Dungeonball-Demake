@@ -8,6 +8,7 @@ public class BGMManager : MonoBehaviour
     private void OnEnable()
     {
         GameManager.Instance.OnGameOver += Deactivate;
+        GameManager.Instance.OnGameWon += Deactivate;
     }
 
     private void OnDisable()
@@ -16,6 +17,7 @@ public class BGMManager : MonoBehaviour
             return;
 
         GameManager.Instance.OnGameOver -= Deactivate;
+        GameManager.Instance.OnGameWon -= Deactivate;
     }
 
     private void Start()

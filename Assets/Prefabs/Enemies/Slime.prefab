@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 390866623937607812}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -227,7 +227,7 @@ Transform:
   m_GameObject: {fileID: 1494992998036338219}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.25, y: 0.21, z: 0.548}
+  m_LocalPosition: {x: 0.25, y: 0.71000004, z: 0.548}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -455,7 +455,7 @@ Transform:
   m_GameObject: {fileID: 3040706502969883416}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.489}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0.489}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -488,7 +488,7 @@ Transform:
   m_GameObject: {fileID: 3054911258240324992}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.25, y: 0.21, z: 0.548}
+  m_LocalPosition: {x: -0.25, y: 0.71000004, z: 0.548}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -555,6 +555,9 @@ GameObject:
   - component: {fileID: 1576180425165650214}
   - component: {fileID: 65890254835993456}
   - component: {fileID: 2804562230175055891}
+  - component: {fileID: 5592095460316932768}
+  - component: {fileID: 7186652586038209040}
+  - component: {fileID: 257831173260590109}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -570,7 +573,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4398280858928571589}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -604,6 +607,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67fea6d295fc48c468fd374afed125a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5592095460316932768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398280858928571589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31d4d0ee2d4ca8640bf7817a19bfc689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7186652586038209040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398280858928571589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eba8b084be74604aa8646e153b37627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementJump: {fileID: 3986600322344527902}
+  _targetScale: {x: 0.5, y: 1.5, z: 0.5}
+  _scaleSpeed: 4
+--- !u!114 &257831173260590109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398280858928571589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3ac0fc8a7138f4cb6bb2085a7c639e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _groundSensor: {fileID: 7728484901345542204}
+  _targetScale: {x: 1.5, y: 0.5, z: 1.5}
+  _scaleSpeed: 4
+  _cooldown: 0.1
 --- !u!1 &5784497338028700490
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,7 +718,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1.03, z: 1}
-  m_Center: {x: 0, y: -0.03, z: 0}
+  m_Center: {x: 0, y: 0.47, z: 0}
 --- !u!54 &4313054827914286019
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -719,7 +765,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: 0.5
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &1036428863270906827

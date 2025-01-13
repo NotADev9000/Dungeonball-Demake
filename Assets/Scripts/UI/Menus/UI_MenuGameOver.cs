@@ -7,6 +7,9 @@ public class UI_MenuGameOver : UI_Menu
 
     private void OnDisable()
     {
+        if (GameManager.Instance == null)
+            return;
+
         GameManager.Instance.OnGameOver -= OnGameOver;
     }
 

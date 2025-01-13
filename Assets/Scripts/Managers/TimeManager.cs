@@ -18,9 +18,13 @@ public class TimeManager : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.Instance.OnGameStarted -= ResetTime;
         UI_Menu.OnMenuOpened -= PauseTime;
         UI_Menu.OnMenuClosed -= ResetTime;
+
+        if (GameManager.Instance == null)
+            return;
+
+        GameManager.Instance.OnGameStarted -= ResetTime;
     }
 
     private void PauseTime()

@@ -8,6 +8,9 @@ public class UI_MenuPause : UI_Menu
 
     private void OnDisable()
     {
+        if (GameManager.Instance == null)
+            return;
+
         GameManager.Instance.OnGamePaused -= OnPause;
         GameManager.Instance.OnGameResumed -= OnResume;
     }

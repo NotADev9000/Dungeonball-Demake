@@ -37,7 +37,9 @@ public class GroundSensor : MonoBehaviour
 
     private bool CheckGrounded()
     {
-        return Physics.BoxCast(transform.position, _boxCollider.bounds.size / 2, Vector3.down, Quaternion.identity, _groundCheckDistance);
+        Vector3 halfExtents = _boxCollider.bounds.size / 2;
+        Vector3 boxCenter = new(transform.position.x, transform.position.y + halfExtents.y, transform.position.z);
+        return Physics.BoxCast(boxCenter, halfExtents, Vector3.down, Quaternion.identity, _groundCheckDistance);
         // return Physics.Raycast(transform.position, Vector3.down, (_boxCollider.bounds.size.y / 2) + _groundCheckDistance);
     }
 
@@ -52,7 +54,7 @@ public class GroundSensor : MonoBehaviour
         {
             Collider col = GetComponent<BoxCollider>();
             Gizmos.color = Color.red;
-            Vector3 from = col.bounds.center + (Vector3.down * (((col.bounds.size.y) / 2) + (_groundCheckDistance / 2)));
+            Vector3 from = col.bounds.center + (Vector3.down * ((col.bounds.size.y / 2) + (_groundCheckDistance / 2)));
             // Vector3 to = from + (Vector3.down * _groundCheckDistance);
             Vector3 to = new(col.bounds.size.x, _groundCheckDistance, col.bounds.size.z);
             Gizmos.DrawCube(from, to);
